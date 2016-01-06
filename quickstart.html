@@ -1,0 +1,228 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Quick Start &mdash; Vulcand documentation 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Vulcand documentation 2.0 documentation" href="index.html" />
+    <link rel="next" title="User Manual" href="proxy.html" />
+    <link rel="prev" title="Documentation" href="index.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="http://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+     
+  </head>
+  <body role="document">
+
+<header style="content:none">
+  <div class="container">
+      <a href="http://github.com/mailgun/vulcand/" style="float:left;margin-top:20px;margin-bottom:20px;background:url(_static/img/vulcan.png) no-repeat">
+        <img src="_static/img/vulcan.png">
+        </img>
+      </a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="//www.vulcanproxy.com" class="active"><b>Documentation</b></a>
+      </nav>
+      <button id="js-show-nav"><i class="icon-reorder"></i></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a target="blank" href="https://github.com/mailgun/vulcand-docs" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Samples:
+        </li>
+        <li class="lang">
+          <a href="" id="lang_etcd">Etcd</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_cli">Vulcanctl</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_api">API</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Quick Start</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#example-setting-up-vulcand">Example: setting up Vulcand</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="proxy.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middlewares.html">Middlewares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="quick-start">
+<span id="quickstart"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<div class="figure align-left">
+<img alt="_images/Vulcan1.png" src="_images/Vulcan1.png" />
+</div>
+<p>Vulcand uses Etcd as a configuration backend. See Etcd <a class="reference external" href="https://github.com/coreos/etcd#getting-started">getting started guide</a> for instructions.</p>
+<p>The easiest way to install Vulcand is to pull the trusted build from the hub.docker.com and launch it in the container:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># download vulcand from the trusted build</span>
+docker pull mailgun/vulcand:v0.8.0-beta.2
+
+<span class="c"># launch vulcand in a container</span>
+docker run -p 8182:8182 -p 8181:8181 mailgun/vulcand:v0.8.0-beta.2 /go/bin/vulcand -apiInterface<span class="o">=</span>0.0.0.0 --etcd<span class="o">=</span>http://172.17.42.1:4001
+</pre></div>
+</div>
+<p>You can check if Vulcand is running by checking the logs of the container:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># check out the output from the container:</span>
+docker logs <span class="k">$(</span>docker ps <span class="p">|</span> grep vulcand <span class="p">|</span> awk <span class="s1">&#39;{ print $1 }&#39;</span><span class="k">)</span>
+
+Dec <span class="m">25</span> 20:22:24.002: WARN PID:1 <span class="o">[</span>supervisor.go:350<span class="o">]</span> No frontends found
+</pre></div>
+</div>
+<p>That was Vulcand complaining that there are no frontends specified</p>
+<div class="section" id="example-setting-up-vulcand">
+<h2>Example: setting up Vulcand<a class="headerlink" href="#example-setting-up-vulcand" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+etcdctl <span class="nb">set</span> /vulcand/backends/b1/backend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;}&#39;</span>
+etcdctl <span class="nb">set</span> /vulcand/backends/b1/servers/srv1 <span class="s1">&#39;{&quot;URL&quot;: &quot;http://localhost:5000&quot;}&#39;</span>
+
+<span class="c"># Upsert a frontend connected to backend &quot;b1&quot; that matches path /</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/frontend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+vctl backend upsert -id b1
+vctl server upsert -b b1 -id srv1 -url http://localhost:5000
+
+<span class="c"># Upsert a frontend connected to backend &quot;b1&quot; that matches path /</span>
+vctl frontend upsert -id f1 -b b1 -route <span class="s1">&#39;Path(&quot;/&quot;)&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Backend&quot;: {&quot;Id&quot;:&quot;b1&quot;, &quot;Type&quot;:&quot;http&quot;}}&#39;</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends/b1/servers<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Server&quot;: {&quot;Id&quot;:&quot;srv1&quot;, &quot;URL&quot;:&quot;http://localhost:5000&quot;}}&#39;</span>
+
+<span class="c"># Upsert a frontend connected to backend &quot;b1&quot; that matches path /</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends<span class="se">\</span>
+      -d <span class="s1">&#39;{&quot;Frontend&quot;: {&quot;Id&quot;:&quot;f1&quot;, &quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(\&quot;/\&quot;)&quot;}}&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      <div class="footer">
+        <p><a href="https://github.com/mailgun/vulcand">Found a typo? Send a pull request!</a></p>
+        
+             <P>Docs created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.</P>
+        
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body -->
+
+<footer>
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="http://twitter.com/mail_gun">Mailgun Twitter</a>
+            <a href="http://vulcan.ghost.io">Blog</a>
+        </nav>
+    </div>
+</footer>
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+<script type="text/javascript">
+   $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   $('#clear-search').click(function(){
+    $(this).parent().find('input').val('');
+    $(this).parent().find('input').focus();
+   });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+    // highlight nav on load
+    $(document).ready(function(){
+        $('.docs-sidebar li').removeClass('active');
+        $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+    });
+</script>
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55222876-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

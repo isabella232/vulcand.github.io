@@ -1,0 +1,467 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Middlewares &mdash; Vulcand documentation 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Vulcand documentation 2.0 documentation" href="index.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="User Manual" href="proxy.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="http://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+     
+  </head>
+  <body role="document">
+
+<header style="content:none">
+  <div class="container">
+      <a href="http://github.com/mailgun/vulcand/" style="float:left;margin-top:20px;margin-bottom:20px;background:url(_static/img/vulcan.png) no-repeat">
+        <img src="_static/img/vulcan.png">
+        </img>
+      </a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="//www.vulcanproxy.com" class="active"><b>Documentation</b></a>
+      </nav>
+      <button id="js-show-nav"><i class="icon-reorder"></i></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a target="blank" href="https://github.com/mailgun/vulcand-docs" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Samples:
+        </li>
+        <li class="lang">
+          <a href="" id="lang_etcd">Etcd</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_cli">Vulcanctl</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_api">API</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxy.html">User Manual</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Middlewares</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Middlewares</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#middleware-chains">Middleware Chains</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vbundle">Vbundle</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#example-auth-middleware">Example - Auth middleware</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="middlewares">
+<span id="id1"></span><h1>Middlewares<a class="headerlink" href="#middlewares" title="Permalink to this headline">¶</a></h1>
+<p>Vulcand allows you to compile in middlewares that can change, intercept or reject the request or even alter the response,
+and provides <code class="docutils literal"><span class="pre">vulcanbundle</span></code> command line tool to make it easy.</p>
+<div class="section" id="id2">
+<h2>Middlewares<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Middlewares are allowed to observe, modify and intercept http requests and responses. Each middleware is fully compatible with Go standard library <code class="docutils literal"><span class="pre">http.Handler</span></code> interface:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="kd">type</span> <span class="nx">Handler</span> <span class="kd">interface</span> <span class="p">{</span>
+      <span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">ServeHTTP</span></code> is called before the request is going to be forwarded to the server selected by the load balancer. This function can modify or intercept request before it gets to a final destination and change the response.</li>
+</ul>
+</div>
+<div class="section" id="middleware-chains">
+<h2>Middleware Chains<a class="headerlink" href="#middleware-chains" title="Permalink to this headline">¶</a></h2>
+<p>Middleware chains define an order in which middlewares will be executed. Each Middleware handler will explicitly call next handler:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">MyHandler</span><span class="p">)</span> <span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+     <span class="c1">// do something with the request and pass to the next handler</span>
+     <span class="nx">h</span><span class="p">.</span><span class="nx">next</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In case if middleware decides to reject the request, it should not call next, and instead write it&#8217;s own response:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="kd">func</span> <span class="p">(</span><span class="nx">h</span> <span class="o">*</span><span class="nx">MyHandler</span><span class="p">)</span> <span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">io</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;access denied&quot;</span><span class="p">)</span>
+    <span class="nx">io</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="mi">403</span><span class="p">)</span>
+    <span class="k">return</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example of a request that passes auth and limiting middlewares and hits the server:</p>
+<div class="figure align-center">
+<img alt="_images/VulcanMiddleware.png" src="_images/VulcanMiddleware.png" />
+</div>
+<p>Example of a request that is rejected by limiting middleware:</p>
+<div class="figure align-center">
+<img alt="_images/VulcanMiddlewareReject.png" src="_images/VulcanMiddlewareReject.png" />
+</div>
+<p>In this case server won&#8217;t process the request.</p>
+</div>
+<div class="section" id="vbundle">
+<h2>Vbundle<a class="headerlink" href="#vbundle" title="Permalink to this headline">¶</a></h2>
+<p>Vbundle is a very simple command line tool that creates a new version of vulcand daemon by writing a new <code class="docutils literal"><span class="pre">main.go</span></code> that imports the <code class="docutils literal"><span class="pre">vulcand</span></code> packages and your plugins:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+   <span class="s">&quot;github.com/mailgun/vulcand&quot;</span>
+   <span class="s">&quot;github.com/example/extension&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">vulcand</span><span class="p">.</span><span class="nx">RegisterPlugin</span><span class="p">(</span><span class="nx">extension</span><span class="p">.</span><span class="nx">Spec</span><span class="p">())</span>
+    <span class="nx">vulcand</span><span class="p">.</span><span class="nx">Run</span><span class="p">()</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Vbundle does not download anything from the internet, it just generates the program for you. To compile, the packages and dependencies should be in your working environment.</p>
+<div class="section" id="example-auth-middleware">
+<h3>Example - Auth middleware<a class="headerlink" href="#example-auth-middleware" title="Permalink to this headline">¶</a></h3>
+<p>In this example, we will write a new fully functional (but insecure) middleware that will require all requests to be authorized with HTTP basic auth.
+For this demo, we&#8217;ve created <code class="docutils literal"><span class="pre">auth</span></code> package in our environment. Full source code is available at: <a class="reference external" href="http://github.com/mailgun/vulcand-auth">http://github.com/mailgun/vulcand-auth</a></p>
+<div class="section" id="describing-your-middleware">
+<h4>Describing your middleware<a class="headerlink" href="#describing-your-middleware" title="Permalink to this headline">¶</a></h4>
+<p>Vulcand looks for a special function <code class="docutils literal"><span class="pre">GetSpec</span></code> that returns all that it needs to know about this middleware.</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="kn">import</span> <span class="p">(</span>
+    <span class="s">&quot;github.com/mailgun/vulcand/plugin&quot;</span>
+<span class="p">)</span>
+
+<span class="kd">const</span> <span class="nx">Type</span> <span class="p">=</span> <span class="s">&quot;auth&quot;</span>
+
+<span class="kd">func</span> <span class="nx">GetSpec</span><span class="p">()</span> <span class="o">*</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">MiddlewareSpec</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="o">&amp;</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">MiddlewareSpec</span><span class="p">{</span>
+               <span class="nx">Type</span><span class="p">:</span>      <span class="nx">Type</span><span class="p">,</span>       <span class="c1">// A short name for the middleware</span>
+               <span class="nx">FromOther</span><span class="p">:</span> <span class="nx">FromOther</span><span class="p">,</span>  <span class="c1">// Tells vulcand how to create middleware from another one</span>
+               <span class="nx">FromCli</span><span class="p">:</span>   <span class="nx">FromCli</span><span class="p">,</span>    <span class="c1">// Tells vulcand how to create middleware from CLI</span>
+               <span class="nx">CliFlags</span><span class="p">:</span>  <span class="nx">CliFlags</span><span class="p">(),</span> <span class="c1">// Vulcand will add this flags CLI command</span>
+       <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>We will get back to each one of this functions later, for now let&#8217;s create a middleware struct itself.
+Our Auth plugin is a struct that stores username and password.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Your struct should contain only values expected in: <a class="reference external" href="http://golang.org/pkg/encoding/json/#Marshal">http://golang.org/pkg/encoding/json/#Marshal</a></p>
+</div>
+<div class="highlight-go"><div class="highlight"><pre><span class="c1">// AuthMiddleware struct holds configuration parameters and is used to</span>
+<span class="c1">// serialize/deserialize the configuration from storage engines.</span>
+<span class="kd">type</span> <span class="nx">AuthMiddleware</span> <span class="kd">struct</span> <span class="p">{</span>
+       <span class="nx">Password</span> <span class="kt">string</span>
+       <span class="nx">Username</span> <span class="kt">string</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="handler">
+<h4>Handler<a class="headerlink" href="#handler" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s define <code class="docutils literal"><span class="pre">ServeHTTP</span></code> handler that will be called on each request and response.</p>
+<div class="highlight-go"><div class="highlight"><pre> <span class="c1">// Auth middleware handler</span>
+ <span class="kd">type</span> <span class="nx">AuthHandler</span> <span class="kd">struct</span> <span class="p">{</span>
+       <span class="nx">cfg</span>  <span class="nx">AuthMiddleware</span>
+       <span class="nx">next</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span>
+<span class="p">}</span>
+
+<span class="c1">// This function will be called each time the request hits the location with this middleware activated</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">AuthHandler</span><span class="p">)</span> <span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">r</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">auth</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">utils</span><span class="p">.</span><span class="nx">ParseAuthHeader</span><span class="p">(</span><span class="nx">r</span><span class="p">.</span><span class="nx">Header</span><span class="p">.</span><span class="nx">Get</span><span class="p">(</span><span class="s">&quot;Authorization&quot;</span><span class="p">))</span>
+       <span class="c1">// Reject the request by writing forbidden response</span>
+       <span class="k">if</span> <span class="nx">err</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">Username</span> <span class="o">!=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Username</span> <span class="o">||</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cfg</span><span class="p">.</span><span class="nx">Password</span> <span class="o">!=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Password</span> <span class="p">{</span>
+               <span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">StatusForbidden</span><span class="p">)</span>
+               <span class="nx">io</span><span class="p">.</span><span class="nx">WriteString</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="s">&quot;Forbidden&quot;</span><span class="p">)</span>
+               <span class="k">return</span>
+       <span class="p">}</span>
+       <span class="c1">// Pass the request to the next middleware in chain</span>
+       <span class="nx">a</span><span class="p">.</span><span class="nx">next</span><span class="p">.</span><span class="nx">ServeHTTP</span><span class="p">(</span><span class="nx">w</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">it is important to call next handler if you want to pass the request to the server</p>
+</div>
+<p>As you may noticed, <code class="docutils literal"><span class="pre">AuthHandler</span></code> is fully compatible with <code class="docutils literal"><span class="pre">http.Handler</span></code>. This is very handy as you may now re-use all these middlewares available in the internet, like this one:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/codahale/http-handlers">https://github.com/codahale/http-handlers</a></li>
+<li><a class="reference external" href="https://github.com/mailgun/oxy">https://github.com/mailgun/oxy</a></li>
+</ul>
+</div>
+<div class="section" id="utility-functions">
+<h4>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s define some other important functions as the next step.</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="c1">// This function is optional but handy, used to check input parameters when creating new middlewares</span>
+<span class="kd">func</span> <span class="nx">New</span><span class="p">(</span><span class="nx">user</span><span class="p">,</span> <span class="nx">pass</span> <span class="kt">string</span><span class="p">)</span> <span class="p">(</span><span class="o">*</span><span class="nx">AuthMiddleware</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">if</span> <span class="nx">user</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="o">||</span> <span class="nx">pass</span> <span class="o">==</span> <span class="s">&quot;&quot;</span> <span class="p">{</span>
+               <span class="k">return</span> <span class="kc">nil</span><span class="p">,</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Errorf</span><span class="p">(</span><span class="s">&quot;Username and password can not be empty&quot;</span><span class="p">)</span>
+       <span class="p">}</span>
+       <span class="k">return</span> <span class="o">&amp;</span><span class="nx">AuthMiddleware</span><span class="p">{</span><span class="nx">Username</span><span class="p">:</span> <span class="nx">user</span><span class="p">,</span> <span class="nx">Password</span><span class="p">:</span> <span class="nx">pass</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// This function is important, it&#39;s called by vulcand to create a new handler from the middleware config and put it into the</span>
+<span class="c1">// middleware chain. Note that we need to remember &#39;next&#39; handler to call</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">AuthMiddleware</span><span class="p">)</span> <span class="nx">NewHandler</span><span class="p">(</span><span class="nx">next</span> <span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">)</span> <span class="p">(</span><span class="nx">http</span><span class="p">.</span><span class="nx">Handler</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="o">&amp;</span><span class="nx">AuthHandler</span><span class="p">{</span><span class="nx">next</span><span class="p">:</span> <span class="nx">next</span><span class="p">,</span> <span class="nx">cfg</span><span class="p">:</span> <span class="o">*</span><span class="nx">c</span><span class="p">},</span> <span class="kc">nil</span>
+<span class="p">}</span>
+
+<span class="c1">// String() will be called by loggers inside Vulcand and command line tool.</span>
+<span class="kd">func</span> <span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">AuthMiddleware</span><span class="p">)</span> <span class="nx">String</span><span class="p">()</span> <span class="kt">string</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nx">fmt</span><span class="p">.</span><span class="nx">Sprintf</span><span class="p">(</span><span class="s">&quot;username=%v, pass=%v&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span> <span class="s">&quot;********&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="constructors">
+<h4>Constructors<a class="headerlink" href="#constructors" title="Permalink to this headline">¶</a></h4>
+<p>As the final step, lets define the functions required by <code class="docutils literal"><span class="pre">GetSpec</span></code>, these ones will be called by <code class="docutils literal"><span class="pre">Vulcand</span></code> when it will need to
+create new auth middlewares:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="c1">// FromOther Will be called by Vulcand when engine or API will read the middleware from the serialized format.</span>
+<span class="c1">// It&#39;s important that the signature of the function will be exactly the same, otherwise Vulcand will</span>
+<span class="c1">// fail to register this middleware.</span>
+<span class="c1">// The first and the only parameter should be the struct itself, no pointers and other variables.</span>
+<span class="c1">// Function should return middleware interface and error in case if the parameters are wrong.</span>
+<span class="kd">func</span> <span class="nx">FromOther</span><span class="p">(</span><span class="nx">c</span> <span class="nx">AuthMiddleware</span><span class="p">)</span> <span class="p">(</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">Middleware</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nx">New</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">Username</span><span class="p">,</span> <span class="nx">c</span><span class="p">.</span><span class="nx">Password</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// FromCli constructs the middleware from the command line</span>
+<span class="kd">func</span> <span class="nx">FromCli</span><span class="p">(</span><span class="nx">c</span> <span class="o">*</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Context</span><span class="p">)</span> <span class="p">(</span><span class="nx">plugin</span><span class="p">.</span><span class="nx">Middleware</span><span class="p">,</span> <span class="kt">error</span><span class="p">)</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="nx">New</span><span class="p">(</span><span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;user&quot;</span><span class="p">),</span> <span class="nx">c</span><span class="p">.</span><span class="nx">String</span><span class="p">(</span><span class="s">&quot;pass&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="c1">// CliFlags will be used by Vulcand construct help and CLI command for the vctl command</span>
+<span class="kd">func</span> <span class="nx">CliFlags</span><span class="p">()</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Flag</span> <span class="p">{</span>
+       <span class="k">return</span> <span class="p">[]</span><span class="nx">cli</span><span class="p">.</span><span class="nx">Flag</span><span class="p">{</span>
+               <span class="nx">cli</span><span class="p">.</span><span class="nx">StringFlag</span><span class="p">{</span><span class="s">&quot;user, u&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Basic auth username&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">},</span>
+               <span class="nx">cli</span><span class="p">.</span><span class="nx">StringFlag</span><span class="p">{</span><span class="s">&quot;pass, p&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;Basic auth pass&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">},</span>
+       <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="imports">
+<h4>Imports<a class="headerlink" href="#imports" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s take a look at all imports used in the <a class="reference external" href="http://github.com/mailgun/vulcand-auth">http://github.com/mailgun/vulcand-auth</a></p>
+<div class="highlight-go"><div class="highlight"><pre><span class="c1">// Note that I import the versions bundled with vulcand. That will make our lives easier, as we&#39;ll use exactly the same versions used</span>
+<span class="c1">// by vulcand. We are escaping dependency management troubles thanks to Godep.</span>
+<span class="kn">import</span> <span class="p">(</span>
+       <span class="s">&quot;fmt&quot;</span>
+       <span class="s">&quot;io&quot;</span>
+       <span class="s">&quot;net/http&quot;</span>
+
+       <span class="s">&quot;github.com/mailgun/vulcand/Godeps/_workspace/src/github.com/codegangsta/cli&quot;</span>
+       <span class="s">&quot;github.com/mailgun/vulcand/Godeps/_workspace/src/github.com/mailgun/oxy/utils&quot;</span>
+       <span class="s">&quot;github.com/mailgun/vulcand/plugin&quot;</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>Vulcand uses <a class="reference external" href="https://github.com/tools/godep">Godep</a> to manage it dependencies, we encourage you to read it&#8217;s docs.
+That&#8217;s why all imports to shared libraries are pointing to versions vendored with the version of vulcand you are using.</p>
+</div>
+<div class="section" id="getting-it-together">
+<h4>Getting it together<a class="headerlink" href="#getting-it-together" title="Permalink to this headline">¶</a></h4>
+<p>Let&#8217;s create a folder in <code class="docutils literal"><span class="pre">GOPATH</span></code> environment that will be used for your version of <code class="docutils literal"><span class="pre">Vulcand</span></code> compiled with the new middleware.
+In our case it looks like this:</p>
+<div class="highlight-bash"><div class="highlight"><pre>/home/alex/goworld/src/github.com/mailgun/vulcand-bundle
+</pre></div>
+</div>
+<p>In your case it would be something different. Now execute the vbundle command, you should see something like this:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>vbundle init --middleware<span class="o">=</span>github.com/mailgun/vulcand-auth/auth
+Dec <span class="m">26</span> 01:02:57.180: INFO PID:16442 <span class="o">[</span>main.go:51<span class="o">]</span> SUCCESS: bundle vulcand and vctl completed
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><code class="docutils literal"><span class="pre">--middleware=github.com/mailgun/vulcand-auth/auth</span></code> flag tells the tool to include our auth middleware into bundle.</p>
+</div>
+<p>Let us check that it actually did something:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>ls
+main.go  registry  vctl
+</pre></div>
+</div>
+<p>What just happened? Vbundle wrote a new version of <code class="docutils literal"><span class="pre">main.go</span></code> and <code class="docutils literal"><span class="pre">vctl</span></code> that have our <code class="docutils literal"><span class="pre">auth</span></code> middleware plugged in.
+The final step would be to install the bundle. Let&#8217;s <code class="docutils literal"><span class="pre">cd</span></code> to the vulcand-bundle dir and execute the build commands</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>go build -o vulcand
+<span class="nv">$ </span><span class="nb">pushd </span>vctl/ <span class="o">&amp;&amp;</span> go build -o vctl <span class="o">&amp;&amp;</span> <span class="nb">popd</span>
+</pre></div>
+</div>
+<p>Congrats! Now you have your version of <code class="docutils literal"><span class="pre">vulcand</span></code> and <code class="docutils literal"><span class="pre">vctl</span></code> Let&#8217;s use it and try a couple of tricks with the new middleware
+to ensure it actually works.</p>
+<p>We need to start the new binary and configure the server first. (If you have it configured, just skip configuration steps below)</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># start the daemon</span>
+<span class="nv">$ </span>./vulcand -etcd http://localhost:4001
+
+<span class="c"># add host, location and upstream with endpoints via newly compiled command line tool</span>
+<span class="nv">$ </span>./vctl/vctl backend upsert -id b1
+<span class="nv">$ </span>./vctl/vctl server upsert -id srv1 -b b1 -url http://localhost:5000
+<span class="nv">$ </span>./vctl/vctl frontend upsert -id f1 -b b1 -route <span class="s1">&#39;Path(&quot;/&quot;)&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-auth-middleware">
+<h4>Using Auth middleware<a class="headerlink" href="#using-auth-middleware" title="Permalink to this headline">¶</a></h4>
+<p>Now to the fun part, you can configure the new authorization. Make sure that auth command is now available:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./vctl/vctl auth --help
+<span class="nv">$ </span>./vctl/vctl auth upsert --help
+</pre></div>
+</div>
+<p>Let&#8217;s play with the new feature!</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># add the auth</span>
+<span class="nv">$ </span>./vctl/vctl auth upsert -f f1 -user<span class="o">=</span>hello -pass<span class="o">=</span>world
+OK: auth upserted
+
+<span class="c"># try it out</span>
+<span class="nv">$ </span>curl http://localhost:8181/
+Forbidden
+
+<span class="c"># ok, here you go:</span>
+<span class="nv">$ </span>curl -u hello:world http://localhost:8181/
+ok
+</pre></div>
+</div>
+</div>
+<div class="section" id="etcd">
+<h4>Etcd<a class="headerlink" href="#etcd" title="Permalink to this headline">¶</a></h4>
+<p>Note that you can use Etcd to configure the new middleware, <code class="docutils literal"><span class="pre">vulcand</span></code> will load it from json representation:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/auth1 <span class="s1">&#39;{&quot;Type&quot;: &quot;auth&quot;, &quot;Middleware&quot;:{&quot;Username&quot;: &quot;user&quot;, &quot;Password&quot;: &quot;secret1&quot;}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="testing">
+<h4>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h4>
+<p>We were in a hurry trying to get it all working, didn&#8217;t we? Now we can step back and cover it all by tests:</p>
+<p><a class="reference external" href="https://github.com/mailgun/vulcand-auth/blob/master/auth/auth_test.go">https://github.com/mailgun/vulcand-auth/blob/master/auth/auth_test.go</a></p>
+</div>
+<div class="section" id="maintenance">
+<h4>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline">¶</a></h4>
+<p>Note that vbundle simply writes the new <code class="docutils literal"><span class="pre">vulcanbundle</span></code> for you, and does not try to get in your way of managing your environment.
+However, here are a couple of tips if you feel like you need ones:</p>
+<ul class="simple">
+<li>Your new bundle is just a go program like any other one out there.</li>
+<li>This means that you can add it to your repo, and update periodically by calling <code class="docutils literal"><span class="pre">vbundle</span> <span class="pre">init</span></code> with new parameters.</li>
+<li>You can use <code class="docutils literal"><span class="pre">godep</span> <span class="pre">save</span> <span class="pre">-r</span> <span class="pre">./...</span></code> with new bundle as well to make sure your bundle&#8217;s deps are always there.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      <div class="footer">
+        <p><a href="https://github.com/mailgun/vulcand">Found a typo? Send a pull request!</a></p>
+        
+             <P>Docs created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.</P>
+        
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body -->
+
+<footer>
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="http://twitter.com/mail_gun">Mailgun Twitter</a>
+            <a href="http://vulcan.ghost.io">Blog</a>
+        </nav>
+    </div>
+</footer>
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+<script type="text/javascript">
+   $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   $('#clear-search').click(function(){
+    $(this).parent().find('input').val('');
+    $(this).parent().find('input').focus();
+   });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+    // highlight nav on load
+    $(document).ready(function(){
+        $('.docs-sidebar li').removeClass('active');
+        $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+    });
+</script>
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55222876-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

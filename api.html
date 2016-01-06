@@ -1,0 +1,754 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>API Reference &mdash; Vulcand documentation 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Vulcand documentation 2.0 documentation" href="index.html" />
+    <link rel="prev" title="Middlewares" href="middlewares.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="http://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+     
+  </head>
+  <body role="document">
+
+<header style="content:none">
+  <div class="container">
+      <a href="http://github.com/mailgun/vulcand/" style="float:left;margin-top:20px;margin-bottom:20px;background:url(_static/img/vulcan.png) no-repeat">
+        <img src="_static/img/vulcan.png">
+        </img>
+      </a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="//www.vulcanproxy.com" class="active"><b>Documentation</b></a>
+      </nav>
+      <button id="js-show-nav"><i class="icon-reorder"></i></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a target="blank" href="https://github.com/mailgun/vulcand-docs" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Samples:
+        </li>
+        <li class="lang">
+          <a href="" id="lang_etcd">Etcd</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_cli">Vulcanctl</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_api">API</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proxy.html">User Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="middlewares.html">Middlewares</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#status">Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#log-severity">Log severity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#host">Host</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#listener">Listener</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#backend">Backend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#server">Server</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#frontend">Frontend</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rate-limit">Rate limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#connection-limit">Connection limit</a></li>
+</ul>
+</li>
+</ul>
+
+          
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="api-reference">
+<span id="api"></span><h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
+<p>Vulcan&#8217;s HTTP API is the best way to configure one or several instances of Vulcan at the same time.
+Essentially it&#8217;s a tiny wrapper around the backend. Multiple Vulcand instances listening to the same prefix would detect changes simultaneously and reload configuration.</p>
+<div class="section" id="status">
+<h2>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h2>
+<p>Status endpoint is handy when you need to integrate Vulcand with another load balancer that can poll Vulcand to route the traffic based on the healthcheck response.</p>
+<div class="section" id="check-status">
+<h3>Check status<a class="headerlink" href="#check-status" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/status
+</pre></div>
+</div>
+<p>Returns: <code class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></code></p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+   <span class="nt">&quot;Status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="log-severity">
+<h2>Log severity<a class="headerlink" href="#log-severity" title="Permalink to this headline">¶</a></h2>
+<p>Log severity endpoint allows to change the logging severity for a running instance</p>
+<div class="section" id="get-severity">
+<h3>Get severity<a class="headerlink" href="#get-severity" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/log/severity
+</pre></div>
+</div>
+<p>Returns: <code class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></code></p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+   <span class="nt">&quot;Severity&quot;</span><span class="p">:</span> <span class="s2">&quot;WARN&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set-severity">
+<h3>Set severity<a class="headerlink" href="#set-severity" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>PUT &#39;multipart/form-data&#39; /v1/log/severity
+</pre></div>
+</div>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="77%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>severity</td>
+<td>Severity - <code class="docutils literal"><span class="pre">WARN</span></code>, <code class="docutils literal"><span class="pre">INFO</span></code> or <code class="docutils literal"><span class="pre">ERROR</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Returns: <code class="docutils literal"><span class="pre">200</span> <span class="pre">OK</span></code></p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+   <span class="nt">&quot;Message&quot;</span><span class="p">:</span> <span class="s2">&quot;Severity has been updated to INFO&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="host">
+<h2>Host<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-hosts">
+<h3>Get hosts<a class="headerlink" href="#get-hosts" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/hosts
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;Hosts&quot;</span><span class="p">:[</span>
+     <span class="p">{</span>
+        <span class="nt">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;Settings&quot;</span><span class="p">:{</span>
+           <span class="nt">&quot;KeyPair&quot;</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span>
+           <span class="nt">&quot;Default&quot;</span><span class="p">:</span><span class="kc">false</span>
+        <span class="p">}</span>
+     <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upsert-host">
+<h3>Upsert host<a class="headerlink" href="#upsert-host" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v2/hosts
+</pre></div>
+</div>
+<p>Add a host to the proxy.</p>
+<div class="highlight-json"><div class="highlight"><pre>{
+&quot;Host&quot;: {
+ &quot;Name&quot;: &quot;localhost&quot;,                              // hostname
+ &quot;Settings&quot;: {                                     // settings are optional
+   &quot;KeyPair&quot;: {&quot;Cert&quot;: &quot;base64&quot;, Key: &quot;base64&quot;},   // base64 encoded key-pair certficate
+   &quot;Default&quot;: false ,                              // default host for SNI
+ }
+}
+</pre></div>
+</div>
+<p>}</p>
+<p>Example responses:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Name&quot;</span><span class="p">:</span> <span class="s2">&quot;localhost&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;KeyPair&quot;</span><span class="p">:</span> <span class="kc">null</span><span class="p">,</span>
+   <span class="nt">&quot;Default&quot;</span><span class="p">:</span> <span class="kc">false</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-host">
+<h3>Delete host<a class="headerlink" href="#delete-host" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/hosts/&lt;name&gt;
+</pre></div>
+</div>
+<p>Delete a host.</p>
+</div>
+</div>
+<div class="section" id="listener">
+<h2>Listener<a class="headerlink" href="#listener" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="upsert-listener">
+<h3>Upsert listener<a class="headerlink" href="#upsert-listener" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v2/listeners
+</pre></div>
+</div>
+<p>Upsert listener</p>
+<div class="highlight-json"><div class="highlight"><pre>{
+ &quot;Listener&quot;: {
+  &quot;Id&quot;: &quot;l1&quot;,
+  &quot;Protocol&quot;: &quot;https&quot;, // http or https
+  &quot;Address&quot;:
+    {
+       &quot;Network&quot;:&quot;tcp&quot;, // unix or tcp
+       &quot;Address&quot;:&quot;localhost:8184&quot;
+    }
+ }
+}
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;12&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Protocol&quot;</span><span class="p">:</span> <span class="s2">&quot;https&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Address&quot;</span><span class="p">:</span>
+    <span class="p">{</span>
+       <span class="nt">&quot;Network&quot;</span><span class="p">:</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;Address&quot;</span><span class="p">:</span><span class="s2">&quot;localhost:8184&quot;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-listener">
+<h3>Delete listener<a class="headerlink" href="#delete-listener" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/listeners/&lt;listener-id&gt;
+</pre></div>
+</div>
+<p>Delete a listener</p>
+</div>
+</div>
+<div class="section" id="backend">
+<h2>Backend<a class="headerlink" href="#backend" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-backends">
+<h3>Get backends<a class="headerlink" href="#get-backends" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/backends
+</pre></div>
+</div>
+<p>Retrieve the existing upstreams. Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Backends&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">&quot;Timeouts&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;Read&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;Dial&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;TLSHandshake&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span>
+       <span class="p">},</span>
+       <span class="nt">&quot;KeepAlive&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;Period&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;MaxIdleConnsPerHost&quot;</span><span class="p">:</span> <span class="mi">0</span>
+       <span class="p">}</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upsert-backend">
+<h3>Upsert backend<a class="headerlink" href="#upsert-backend" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v2/backends
+</pre></div>
+</div>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+<span class="nt">&quot;Backend&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Timeouts&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;Read&quot;</span><span class="p">:</span> <span class="s2">&quot;5s&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;Dial&quot;</span><span class="p">:</span> <span class="s2">&quot;5s&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;TLSHandshake&quot;</span><span class="p">:</span> <span class="s2">&quot;10s&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;KeepAlive&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;Period&quot;</span><span class="p">:</span> <span class="s2">&quot;30s&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;MaxIdleConnsPerHost&quot;</span><span class="p">:</span> <span class="mi">12</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Timeouts&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;Read&quot;</span><span class="p">:</span> <span class="s2">&quot;5s&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Dial&quot;</span><span class="p">:</span> <span class="s2">&quot;5s&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;TLSHandshake&quot;</span><span class="p">:</span> <span class="s2">&quot;10s&quot;</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;KeepAlive&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;Period&quot;</span><span class="p">:</span> <span class="s2">&quot;30s&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;MaxIdleConnsPerHost&quot;</span><span class="p">:</span> <span class="mi">12</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-backend">
+<h3>Delete backend<a class="headerlink" href="#delete-backend" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/backends/&lt;id&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="server">
+<h2>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-servers">
+<h3>Get servers<a class="headerlink" href="#get-servers" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/backends/&lt;id&gt;/servers
+</pre></div>
+</div>
+<p>Retrieve the servers of the backend. Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Servers&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;srv1&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;URL&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:5000&quot;</span>
+   <span class="p">},</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;srv2&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;URL&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:5003&quot;</span>
+   <span class="p">}</span>
+ <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-server">
+<h3>Get server<a class="headerlink" href="#get-server" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/backends/&lt;id&gt;/servers/&lt;server-id&gt;
+</pre></div>
+</div>
+<p>Retrieve the particular server with id <code class="docutils literal"><span class="pre">server-id</span></code></p>
+</div>
+<div class="section" id="upsert-endpoint">
+<h3>Upsert endpoint<a class="headerlink" href="#upsert-endpoint" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST /v1/upstreams/&lt;id&gt;/endpoints
+</pre></div>
+</div>
+<p>Upsert server to the backend</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Server&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;srv1&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;URL&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:5000&quot;</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;e4&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://localhost:5004&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Stats&quot;</span><span class="p">:</span> <span class="kc">null</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-server">
+<h3>Delete server<a class="headerlink" href="#delete-server" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/backends/&lt;id&gt;/servers/&lt;server-id&gt;
+</pre></div>
+</div>
+<p>Delete a server.</p>
+</div>
+</div>
+<div class="section" id="frontend">
+<h2>Frontend<a class="headerlink" href="#frontend" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-frontends">
+<h3>Get frontends<a class="headerlink" href="#get-frontends" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/frontends
+</pre></div>
+</div>
+<p>Retrieve the frontends. Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Frontends&quot;</span><span class="p">:</span> <span class="p">[</span>
+   <span class="p">{</span>
+     <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Route&quot;</span><span class="p">:</span> <span class="s2">&quot;Path(`/`)&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;BackendId&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">&quot;Limits&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;MaxMemBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+         <span class="nt">&quot;MaxBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span>
+       <span class="p">},</span>
+       <span class="nt">&quot;FailoverPredicate&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;Hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+       <span class="nt">&quot;TrustForwardHeader&quot;</span><span class="p">:</span> <span class="kc">false</span>
+     <span class="p">}</span>
+   <span class="p">}</span>
+ <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="get-frontend">
+<h3>Get frontend<a class="headerlink" href="#get-frontend" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/frontends/&lt;frontend-id&gt;
+</pre></div>
+</div>
+<p>Retrieve the particular frontend with id <code class="docutils literal"><span class="pre">frontend-id</span></code></p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Route&quot;</span><span class="p">:</span> <span class="s2">&quot;Path(`/`)&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;BackendId&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Limits&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;MaxMemBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+     <span class="nt">&quot;MaxBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;FailoverPredicate&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;TrustForwardHeader&quot;</span><span class="p">:</span> <span class="kc">false</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upsert-frontend">
+<h3>Upsert frontend<a class="headerlink" href="#upsert-frontend" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v1/hosts/&lt;hostname&gt;/frontends
+</pre></div>
+</div>
+<p>Add a frontend to the host. Params:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Frontend&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Route&quot;</span><span class="p">:</span> <span class="s2">&quot;Path(`\/`)&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;BackendId&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;Limits&quot;</span><span class="p">:</span> <span class="p">{</span>
+       <span class="nt">&quot;MaxMemBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+       <span class="nt">&quot;MaxBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span>
+     <span class="p">},</span>
+     <span class="nt">&quot;FailoverPredicate&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;TrustForwardHeader&quot;</span><span class="p">:</span> <span class="kc">false</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;f1&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Route&quot;</span><span class="p">:</span> <span class="s2">&quot;Path(`/`)&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;http&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;BackendId&quot;</span><span class="p">:</span> <span class="s2">&quot;b1&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;Settings&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Limits&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;MaxMemBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+     <span class="nt">&quot;MaxBodyBytes&quot;</span><span class="p">:</span> <span class="mi">0</span>
+   <span class="p">},</span>
+   <span class="nt">&quot;FailoverPredicate&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;TrustForwardHeader&quot;</span><span class="p">:</span> <span class="kc">false</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="delete-frontend">
+<h3>Delete frontend<a class="headerlink" href="#delete-frontend" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/frontends/&lt;frontend-id&gt;
+</pre></div>
+</div>
+<p>Delete a frontend.</p>
+</div>
+</div>
+<div class="section" id="rate-limit">
+<h2>Rate limit<a class="headerlink" href="#rate-limit" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-rate-limit">
+<h3>Get rate limit<a class="headerlink" href="#get-rate-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/frontends/&lt;frontend-id&gt;/middlewares/&lt;middleware-id&gt;
+</pre></div>
+</div>
+<p>Retrieve the particular rate of frontend with id <code class="docutils literal"><span class="pre">frontend-id</span></code> and rate id <code class="docutils literal"><span class="pre">rate-id</span></code>
+Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;rl1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Priority&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;ratelimit&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;PeriodSeconds&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;Burst&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;Variable&quot;</span><span class="p">:</span> <span class="s2">&quot;client.ip&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;Requests&quot;</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upsert-rate-limit">
+<h3>Upsert rate limit<a class="headerlink" href="#upsert-rate-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v2/frontends/middlewares
+</pre></div>
+</div>
+<p>Add a rate limit to the frontend, will take effect immediately.</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+   <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;rl1&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Priority&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+   <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;ratelimit&quot;</span><span class="p">,</span>
+   <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+     <span class="nt">&quot;PeriodSeconds&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+     <span class="nt">&quot;Burst&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+     <span class="nt">&quot;Variable&quot;</span><span class="p">:</span> <span class="s2">&quot;client.ip&quot;</span><span class="p">,</span>
+     <span class="nt">&quot;Requests&quot;</span><span class="p">:</span> <span class="mi">1</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Json parameters explained:</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Id</td>
+<td>Optional rate id, will be generated if omitted</td>
+</tr>
+<tr class="row-odd"><td>Requests</td>
+<td>Required amount of allowed requests</td>
+</tr>
+<tr class="row-even"><td>PeriodSeconds</td>
+<td>Required period in seconds for counting the requests</td>
+</tr>
+<tr class="row-odd"><td>Burst</td>
+<td>Required allowed burst of the requests (additional requests exceeding the rate)</td>
+</tr>
+<tr class="row-even"><td>Variable</td>
+<td>Variable for rate limiting e.g. <cite>client.ip</cite> or <cite>request.header.My-Header</cite></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="delete-a-rate-limit">
+<h3>Delete a rate limit<a class="headerlink" href="#delete-a-rate-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/frontends/&lt;frontend-id&gt;/middlewares/&lt;middleware-id&gt;
+</pre></div>
+</div>
+<p>Deletes rate limit from the frontend.</p>
+</div>
+</div>
+<div class="section" id="connection-limit">
+<h2>Connection limit<a class="headerlink" href="#connection-limit" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-connection-limit">
+<h3>Get connection limit<a class="headerlink" href="#get-connection-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>GET /v2/frontends/&lt;frontend-id&gt;/middlewares/&lt;conn-id&gt;
+</pre></div>
+</div>
+<p>Retrieve the particular connection limit of frontend with id <code class="docutils literal"><span class="pre">frontend-id</span></code> and connection limit id <code class="docutils literal"><span class="pre">conn-id</span></code>. Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;cl1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Priority&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;connlimit&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Connections&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;Variable&quot;</span><span class="p">:</span> <span class="s2">&quot;client.ip&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="upsert-connection-limit">
+<h3>Upsert connection limit<a class="headerlink" href="#upsert-connection-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>POST &#39;application/json&#39; /v2/frontends/&lt;frontend&gt;/middlewares
+</pre></div>
+</div>
+<p>Upsert a connection limit to the frontend. Example response:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">{</span>
+ <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+  <span class="nt">&quot;Id&quot;</span><span class="p">:</span> <span class="s2">&quot;cl1&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Priority&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;Type&quot;</span><span class="p">:</span> <span class="s2">&quot;connlimit&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;Middleware&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;Connections&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="nt">&quot;Variable&quot;</span><span class="p">:</span> <span class="s2">&quot;client.ip&quot;</span>
+  <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>JSON parameters explained</p>
+<div class="ptable container">
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="81%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Parameter</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Id</td>
+<td>Optional limit id, will be generated if omitted.|</td>
+</tr>
+<tr class="row-odd"><td>Connections</td>
+<td>Required maximum amount of allowed simultaneous connections|</td>
+</tr>
+<tr class="row-even"><td>Variable</td>
+<td>Variable for limiting e.g. <code class="docutils literal"><span class="pre">client.ip</span></code> or <code class="docutils literal"><span class="pre">request.header.My-Header</span></code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="delete-connection-limit">
+<h3>Delete connection limit<a class="headerlink" href="#delete-connection-limit" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-url"><div class="highlight"><pre>DELETE /v2/frontends/&lt;frontend-id&gt;/middlewares/&lt;conn-id&gt;
+</pre></div>
+</div>
+<p>Delete a connection limit from the frontend.</p>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      <div class="footer">
+        <p><a href="https://github.com/mailgun/vulcand">Found a typo? Send a pull request!</a></p>
+        
+             <P>Docs created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.</P>
+        
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body -->
+
+<footer>
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="http://twitter.com/mail_gun">Mailgun Twitter</a>
+            <a href="http://vulcan.ghost.io">Blog</a>
+        </nav>
+    </div>
+</footer>
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+<script type="text/javascript">
+   $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   $('#clear-search').click(function(){
+    $(this).parent().find('input').val('');
+    $(this).parent().find('input').focus();
+   });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+    // highlight nav on load
+    $(document).ready(function(){
+        $('.docs-sidebar li').removeClass('active');
+        $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+    });
+</script>
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55222876-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>

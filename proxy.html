@@ -1,0 +1,1548 @@
+<!doctype html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7 documentation"> <![endif]-->
+<!--[if IE 7]> <html class="lt-ie9 lt-ie8 documentation"> <![endif]-->
+<!--[if IE 8]> <html class="lt-ie9 documentation"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="documentation"> <!--<![endif]-->
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>User Manual &mdash; Vulcand documentation 2.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/main.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Vulcand documentation 2.0 documentation" href="index.html" />
+    <link rel="next" title="Middlewares" href="middlewares.html" />
+    <link rel="prev" title="Quick Start" href="quickstart.html" />
+    <link media="only screen and (max-device-width: 480px)" href="_static/mobile.css" type="text/css" rel="stylesheet" />
+
+    <link rel="icon" type="image/png" href="_static/img/favicon.png" />
+
+    <!-- <link rel="stylesheet" href="_static/docs.css" /> -->
+    <link rel="stylesheet" href="http://www.mailgun.com/static/css/main.css" />
+    <meta name="viewport" content="width=device-width">
+     
+  </head>
+  <body role="document">
+
+<header style="content:none">
+  <div class="container">
+      <a href="http://github.com/mailgun/vulcand/" style="float:left;margin-top:20px;margin-bottom:20px;background:url(_static/img/vulcan.png) no-repeat">
+        <img src="_static/img/vulcan.png">
+        </img>
+      </a>
+      <nav class="header-nav" id="js-header-nav">
+          <a href="//www.vulcanproxy.com" class="active"><b>Documentation</b></a>
+      </nav>
+      <button id="js-show-nav"><i class="icon-reorder"></i></button>
+  </div>
+</header>
+
+<div id="body">
+  <section class="subnav">
+    <div class="container">
+      <a target="blank" href="https://github.com/mailgun/vulcand-docs" class="edit-docs-link" onclick="mixpanel.track('Clicked Edit Docs Link');">Edit</a>
+      <ul id="headerButtons" class="nav nav-pills">
+        <li class="lang-label">
+          Samples:
+        </li>
+        <li class="lang">
+          <a href="" id="lang_etcd">Etcd</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_cli">Vulcanctl</a>
+        </li>
+        <li class="lang">
+          <a href="" id="lang_api">API</a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="main">
+
+    <div class="container">
+
+  
+  <aside id="sphinxsidebar" class="docs-sidebar">
+    <div class="sphinxsidebarwrapper">
+      <ul><li class="toctree-l1"><a href="index.html">Main Page</a></li></ul>
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick Start</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">User Manual</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#host">Host</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listener">Listener</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frontend">Frontend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#backend">Backend</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#server">Server</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#middleware">Middleware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#circuit-breaker">Circuit Breaker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#secret-storage">Secret storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#failover-predicates">Failover Predicates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#route">Route</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#backends-and-servers">Backends and servers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frontends">Frontends</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hosts">Hosts</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#routing-language">Routing Language</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#listeners">Listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#middlewares">Middlewares</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rate-limits">Rate Limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connection-limits">Connection Limits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#rewrites-and-redirects">Rewrites and redirects</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structured-logs">Structured logs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#circuit-breakers">Circuit Breakers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#tls">TLS</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#managing-certificates">Managing certificates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ocsp">OCSP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">SNI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#session-tickets">Session Tickets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#cipher-suites">Cipher Suites</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#tls-options">TLS options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#https-listeners">HTTPS listeners</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#https-backends">HTTPS Backends</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#metrics">Metrics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#logging">Logging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#process-management">Process management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#startup-and-configuration">Startup and configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#binary-upgrades">Binary upgrades</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#log-control">Log control</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">Metrics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-builds">Docker builds</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#docker-trusted-build">Docker trusted build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#manual-installation">Manual installation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="middlewares.html">Middlewares</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+    </div>
+  </aside>
+
+  
+
+    <div class="document">
+  <div id="st-results-container"></div>
+        <div class="documentwrapper">
+          <div class="bodywrapper">
+            <div class="body">
+              
+  <div class="section" id="user-manual">
+<span id="proxy"></span><h1>User Manual<a class="headerlink" href="#user-manual" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this headline">¶</a></h2>
+<p>Familiarizing with the glossary would help to understand the rest of this guide.</p>
+<div class="section" id="host">
+<h3>Host<a class="headerlink" href="#host" title="Permalink to this headline">¶</a></h3>
+<p>Hostname is defined by incoming <code class="docutils literal"><span class="pre">Host</span></code> header. E.g. <code class="docutils literal"><span class="pre">curl</span> <span class="pre">http://example.com/alice</span></code> generates the following request:</p>
+<div class="highlight-sh"><div class="highlight"><pre>GET /alice HTTP/1.1
+User-Agent: curl/7.35.0
+Host: example.com
+</pre></div>
+</div>
+<p>Vulcand hosts contain associated information and settings, such as SNI options and TLS certificates.</p>
+</div>
+<div class="section" id="listener">
+<h3>Listener<a class="headerlink" href="#listener" title="Permalink to this headline">¶</a></h3>
+<p>Listener is a dynamic socket that can be attached or detached to Vulcand without restart. Vulcand can have multiple http and https listeners
+attached to it, providing service on multiple interfaces and protocols.</p>
+</div>
+<div class="section" id="frontend">
+<h3>Frontend<a class="headerlink" href="#frontend" title="Permalink to this headline">¶</a></h3>
+<p>Frontends match the requests and forward it to the backends.
+Each frontend defines a route - a special expression that matches the request, e.g. <code class="docutils literal"><span class="pre">Path(&quot;/v1/path&quot;)</span></code>.
+Frontends are linked to backend and Vulcand will use the servers from this backend to serve the request.</p>
+</div>
+<div class="section" id="backend">
+<h3>Backend<a class="headerlink" href="#backend" title="Permalink to this headline">¶</a></h3>
+<p>Backend is a collection of servers, they control connection pools to servers and transport options, such as connection, read and write timeouts.</p>
+</div>
+<div class="section" id="server">
+<h3>Server<a class="headerlink" href="#server" title="Permalink to this headline">¶</a></h3>
+<p>Server is a final destination of the incoming request, each server is defined by URL <code class="docutils literal"><span class="pre">&lt;schema&gt;://&lt;host&gt;:&lt;port&gt;</span></code>, e.g. <code class="docutils literal"><span class="pre">http://localhost:5000</span></code>.</p>
+</div>
+<div class="section" id="middleware">
+<h3>Middleware<a class="headerlink" href="#middleware" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand supports pluggable middlewares. Middlewares can intercept or transform the request to any frontend. Examples of the supported middlewares are rate limits and connection limits.
+You can add or remove middlewares using command line, API or directly via backends.</p>
+</div>
+<div class="section" id="circuit-breaker">
+<h3>Circuit Breaker<a class="headerlink" href="#circuit-breaker" title="Permalink to this headline">¶</a></h3>
+<p>Circuit breakers are special type of middlewares that observe various metrics for a particular frontend and can activate failover scenario whenever the condition matches  e.g. error rate exceeds the threshold.</p>
+</div>
+<div class="section" id="secret-storage">
+<h3>Secret storage<a class="headerlink" href="#secret-storage" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand supports secret storage - running process acts like encryption/decryption service every time it reads and writes sensitive data, e.g. TLS certificates to the backend.
+To use this feature, users generate <code class="docutils literal"><span class="pre">sealKey</span></code> using command line utility and pass this key to the process for encryption and decryption of the data in the backends.</p>
+</div>
+<div class="section" id="failover-predicates">
+<h3>Failover Predicates<a class="headerlink" href="#failover-predicates" title="Permalink to this headline">¶</a></h3>
+<p>Sometimes it is handy to retry the request on error. The good question is what constitutes an error? Sometimes it&#8217;s a read/write timeout, and somethimes it&#8217;s a special error code.
+Failover predicates are expressions that define when the request can be failed over, e.g.  <code class="docutils literal"><span class="pre">IsNetworkError()</span> <span class="pre">&amp;&amp;</span> <span class="pre">Attempts</span> <span class="pre">&lt;=</span> <span class="pre">2</span></code></p>
+<div class="highlight-bash"><div class="highlight"><pre>IsNetworkError<span class="o">()</span>         <span class="c"># failover on network error</span>
+Attempts<span class="o">()</span> &lt;<span class="o">=</span> <span class="m">1</span>          <span class="c"># allows only 1 failover attempt</span>
+RequestMethod<span class="o">()</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span> <span class="c"># failover for GET requests only</span>
+ResponseCode<span class="o">()</span> <span class="o">==</span> <span class="m">408</span>    <span class="c"># failover on 408 HTTP response code</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">if you omit <cite>Attempts</cite>, failover will max out after 10 attempts.</p>
+</div>
+</div>
+<div class="section" id="route">
+<h3>Route<a class="headerlink" href="#route" title="Permalink to this headline">¶</a></h3>
+<p>Route is a simple routing language for matching http requests with Go syntax: <code class="docutils literal"><span class="pre">Method(&quot;POST&quot;)</span> <span class="pre">&amp;&amp;</span> <span class="pre">Path(&quot;/path&quot;)</span></code>, here are a couple of examples:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;&lt;user&gt;.example.com&quot;</span><span class="p">)</span>            <span class="c1">// Match by host with trie syntax</span>
+<span class="nx">HostRegexp</span><span class="p">(</span><span class="s">&quot;.*.example.com&quot;</span><span class="p">)</span>          <span class="c1">// Match by host with regexp syntax</span>
+
+<span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/v1/users/&lt;user&gt;&quot;</span><span class="p">)</span>              <span class="c1">// Match by path with trie syntax</span>
+<span class="nx">Method</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/v1/users&quot;</span><span class="p">)</span>   <span class="c1">// Match by method and path with trie syntax</span>
+
+<span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/v1/users/.*&quot;</span><span class="p">)</span>                                 <span class="c1">// Match by path with regexp syntax</span>
+<span class="nx">MethodRegexp</span><span class="p">(</span><span class="s">&quot;DELETE|GET&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/v1/users/.*&quot;</span><span class="p">)</span>   <span class="c1">// Match by method and path with regexp syntax</span>
+
+<span class="nx">Header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/&lt;subtype&gt;&quot;</span><span class="p">)</span>            <span class="c1">// trie-based matcher for headers</span>
+<span class="nx">HeaderRegexp</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/.*&quot;</span><span class="p">)</span>             <span class="c1">// regexp based matcher for headers</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline">¶</a></h2>
+<p>Vulcand can be configured via Etcd, API or command line tool - <code class="docutils literal"><span class="pre">vctl</span></code>. You can switch between different configuration examples using the samples switch.</p>
+<div class="section" id="backends-and-servers">
+<h3>Backends and servers<a class="headerlink" href="#backends-and-servers" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-left">
+<img alt="_images/VulcanUpstream.png" src="_images/VulcanUpstream.png" />
+</div>
+<p>Backend is a collection of servers. Vulcand load-balances requests within the backend and keeps the connection pool to every server.
+Frontends using the same backend will share the connections.</p>
+<p>Adding and removing servers to the backend will change the traffic in real-time, removing the backend will lead to graceful drain off of the connections.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+etcdctl <span class="nb">set</span> /vulcand/backends/b1/backend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;}&#39;</span>
+etcdctl <span class="nb">set</span> /vulcand/backends/b1/servers/srv1 <span class="s1">&#39;{&quot;URL&quot;: &quot;http://localhost:5000&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+vctl backend upsert -id b1
+vctl server upsert -b b1 -id srv1 -url http://localhost:5000
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Upsert backend and add a server to it</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Backend&quot;: {&quot;Id&quot;:&quot;b1&quot;, &quot;Type&quot;:&quot;http&quot;}}&#39;</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends/b1/servers<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Server&quot;: {&quot;Id&quot;:&quot;srv1&quot;, &quot;URL&quot;:&quot;http://localhost:5000&quot;}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Backend settings</strong></p>
+<p>Backends define the configuration options to the servers, such as the amount of idle connections and timeouts.
+Backend options are represented as JSON dictionary.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;Timeouts&quot;</span><span class="o">:</span> <span class="p">{</span>
+     <span class="s2">&quot;Read&quot;</span><span class="o">:</span>         <span class="s2">&quot;1s&quot;</span><span class="p">,</span> <span class="c1">// Socket read timeout (before we receive the first reply header)</span>
+     <span class="s2">&quot;Dial&quot;</span><span class="o">:</span>         <span class="s2">&quot;2s&quot;</span><span class="p">,</span> <span class="c1">// Socket connect timeout</span>
+     <span class="s2">&quot;TLSHandshake&quot;</span><span class="o">:</span> <span class="s2">&quot;3s&quot;</span><span class="p">,</span> <span class="c1">// TLS handshake timeout</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;KeepAlive&quot;</span><span class="o">:</span> <span class="p">{</span>
+     <span class="s2">&quot;Period&quot;</span><span class="o">:</span>              <span class="s2">&quot;4s&quot;</span><span class="p">,</span>  <span class="c1">// Keepalive period for idle connections</span>
+     <span class="s2">&quot;MaxIdleConnsPerHost&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>     <span class="c1">// How many idle connections will be kept per host</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>You can update the settings at any time, that will initiate graceful reload of the underlying settings in Vulcand.</p>
+<div class="highlight-etcd"><div class="highlight"><pre>etcdctl <span class="nb">set</span> /vulcand/backends/b1/backend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;, &quot;Settings&quot;: {&quot;KeepAlive&quot;: {&quot;MaxIdleConnsPerHost&quot;: 128, &quot;Period&quot;: &quot;4s&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre>vctl backend upsert -id b1 <span class="se">\</span>
+         -readTimeout<span class="o">=</span>1s -dialTimeout<span class="o">=</span>2s -handshakeTimeout<span class="o">=</span>3s<span class="se">\</span>
+         -keepAlivePeriod<span class="o">=</span>4s -maxIdleConns<span class="o">=</span>128
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Backend&quot;: {&quot;Id&quot;:&quot;b1&quot;, &quot;Type&quot;:&quot;http&quot;, &quot;Settings&quot;: {&quot;KeepAlive&quot;: {&quot;MaxIdleConnsPerHost&quot;: 128, &quot;Period&quot;: &quot;4s&quot;}}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Server heartbeat</strong></p>
+<p>Heartbeat allows to automatically de-register the server when it crashes or wishes to be de-registered.
+Server can heartbeat it&#8217;s presense, and once the heartbeat is stopped, Vulcand will gracefully remove the server from the rotation.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Upsert a server with TTL 5 seconds</span>
+etcdctl <span class="nb">set</span> --ttl <span class="m">5</span> /vulcand/backends/b1/servers/srv2 <span class="s1">&#39;{&quot;URL&quot;: &quot;http://localhost:5001&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Upsert a server with TTL 5 seconds</span>
+vctl server upsert -b b1 -id srv2 -ttl 5s -url http://localhost:5002
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Upsert a server with TTL 5 seconds</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends/b1/servers<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Server&quot;: {&quot;Id&quot;:&quot;srv2&quot;, &quot;URL&quot;:&quot;http://localhost:5001&quot;}, &quot;TTL&quot;: &quot;5s&quot;}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="frontends">
+<h3>Frontends<a class="headerlink" href="#frontends" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-left">
+<img alt="_images/VulcanFrontend.png" src="_images/VulcanFrontend.png" />
+</div>
+<p>If request matches a frontend route it is redirected to one of the servers of the associated backend.
+It is recommended to specify a frontend per API method, e.g. <code class="docutils literal"><span class="pre">Host(&quot;api.example.com&quot;)</span> <span class="pre">&amp;&amp;</span> <span class="pre">Method(&quot;POST&quot;)</span> <span class="pre">&amp;&amp;</span> <span class="pre">Path(&quot;/v1/users&quot;)</span></code>.</p>
+<p>Route can be any valid route expression, e.g. <code class="docutils literal"><span class="pre">Path(&quot;/v1/users&quot;)</span></code> will match for all hosts and
+<code class="docutils literal"><span class="pre">Host(&quot;api.example.com&quot;)</span> <span class="pre">&amp;&amp;</span> <span class="pre">Path(&quot;/v1/users&quot;)</span></code> will match only for <code class="docutils literal"><span class="pre">api.example.com</span></code>.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># upsert frontend connected to backend b1 and matching path &quot;/&quot;</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/frontend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># upsert frontend connected to backend b1 and matching path &quot;/&quot;</span>
+vctl frontend upsert -id f1 -b b1 -route <span class="s1">&#39;Path(&quot;/&quot;)&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># upsert frontend connected to backend b1 and matching path &quot;/&quot;</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends<span class="se">\</span>
+      -d <span class="s1">&#39;{&quot;Frontend&quot;: {&quot;Id&quot;:&quot;f1&quot;, &quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(\&quot;/\&quot;)&quot;}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Frontend settings</strong></p>
+<p>Frontends control various limits, forwarding and failover settings.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;Limits&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;MaxMemBodyBytes&quot;</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span>  <span class="c1">// Maximum request body size to keep in memory before buffering to disk</span>
+    <span class="s2">&quot;MaxBodyBytes&quot;</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>    <span class="c1">// Maximum request body size to allow for this frontend</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;FailoverPredicate&quot;</span><span class="o">:</span>  <span class="s2">&quot;IsNetworkError() &amp;&amp; Attempts() &lt;= 1&quot;</span><span class="p">,</span> <span class="c1">// Predicate that defines when requests are allowed to failover</span>
+  <span class="s2">&quot;Hostname&quot;</span><span class="o">:</span>           <span class="s2">&quot;host1&quot;</span><span class="p">,</span>                               <span class="c1">// Host to set in forwarding headers</span>
+  <span class="s2">&quot;TrustForwardHeader&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>                                  <span class="c1">// Time provider (useful for testing purposes)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Setting frontend settings upates the limits and parameters for the newly arriving requests in real-time.</p>
+<div class="highlight-etcd"><div class="highlight"><pre>etcdctl <span class="nb">set</span> /vulcand/frontends/f1/frontend <span class="s1">&#39;{&quot;Id&quot;: &quot;f1&quot;, &quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;, &quot;Settings&quot;: {&quot;FailoverPredicate&quot;:&quot;(IsNetworkError() || ResponseCode() == 503) &amp;&amp; Attempts() &lt;= 2&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre>vctl frontend upsert<span class="se">\</span>
+        -id<span class="o">=</span>f1<span class="se">\</span>
+        -route<span class="o">=</span><span class="s1">&#39;Path(&quot;/&quot;)&#39;</span><span class="se">\</span>
+        -b<span class="o">=</span>b1<span class="se">\</span>
+        -maxMemBodyKB<span class="o">=</span><span class="m">6</span> -maxBodyKB<span class="o">=</span>7<span class="se">\</span>
+        -failoverPredicate<span class="o">=</span><span class="s1">&#39;IsNetworkError()&#39;</span><span class="se">\</span>
+        -trustForwardHeader<span class="se">\</span>
+        -forwardHost<span class="o">=</span>host1
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Frontend&quot;: {&quot;Id&quot;: &quot;f1&quot;, &quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b1&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;, &quot;Settings&quot;: {&quot;FailoverPredicate&quot;:&quot;(IsNetworkError() || ResponseCode() == 503) &amp;&amp; Attempts() &lt;= 2&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Switching backends</strong></p>
+<p>Updating frontend&#8217;s backend property gracefully re-routes the traffic to the new servers assigned to this backend:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># redirect the traffic of the frontend &quot;loc1&quot; to the servers of the backend &quot;b2&quot;</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/frontend <span class="s1">&#39;{&quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b2&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># redirect the traffic of the frontend &quot;f1&quot; to the servers of the backend &quot;b2&quot;</span>
+vctl frontend upsert -id<span class="o">=</span>f1 -route<span class="o">=</span><span class="s1">&#39;Path(&quot;/&quot;)&#39;</span> -b<span class="o">=</span>b2
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># redirect the traffic of the frontend &quot;loc1&quot; to the servers of the backend &quot;up2&quot;</span>
+ curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends -d <span class="s1">&#39;{&quot;Frontend&quot;: {&quot;Id&quot;: &quot;f1&quot;, &quot;Type&quot;: &quot;http&quot;, &quot;BackendId&quot;: &quot;b2&quot;, &quot;Route&quot;: &quot;Path(`/`)&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">you can add and remove servers to the existing backend, and Vulcand will start redirecting the traffic to them automatically</p>
+</div>
+</div>
+<div class="section" id="hosts">
+<h3>Hosts<a class="headerlink" href="#hosts" title="Permalink to this headline">¶</a></h3>
+<p>One can use Host entries to specify host-related settings, such as TLS certificates and SNI options.</p>
+<p><strong>TLS Certificates</strong></p>
+<p>Certificates are stored as encrypted JSON dictionaries. Updating a certificate will gracefully reload it for all running HTTP servers.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Set keypair</span>
+etcdctl <span class="nb">set</span> /vulcand/hosts/localhost/host <span class="s1">&#39;{&quot;Settings&quot;: {&quot;KeyPair&quot;: {...}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre>vctl host upsert -name &lt;host&gt; -cert<span class="o">=</span>&lt;/path-to/chain.crt&gt; -privateKey<span class="o">=</span>&lt;/path-to/key&gt;
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/hosts<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Host&quot;: { &quot;Name&quot;: &quot;localhost&quot;, &quot;Settings&quot;: {&quot;KeyPair&quot;: {&quot;Cert&quot;: &quot;base64&quot;, Key: &quot;base64&quot;}}}}&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">When setting keypair via Etcd you need to encrypt keypair. This is explained in <a class="reference internal" href="#tls">TLS</a> section of this document.</p>
+</div>
+<p><strong>OCSP</strong></p>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol">Online Certificate Status Protocol</a> is a protocol for certificate revocation checking. Vulcand checks OCSP status in the background and
+includes the OCSP staple response in the TLS handshake when this feature turned on.</p>
+<p>Read more about turning OCSP for hosts in <a class="reference internal" href="#ocsp">OCSP</a> section of this document.</p>
+</div>
+<div class="section" id="routing-language">
+<h3>Routing Language<a class="headerlink" href="#routing-language" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand uses a special type of a routing language to match requests - called <code class="docutils literal"><span class="pre">route</span></code> and implemented as a <a class="reference external" href="https://github.com/mailgun/route">standalone library</a>
+It uses Go syntax to route http requests by by hostname, method, path and headers. Every Vulcand frontend has a special <code class="docutils literal"><span class="pre">Route</span></code> field for routing requests.</p>
+<p>Here is the syntax explained:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Matcher</span><span class="p">(</span><span class="s">&quot;value&quot;</span><span class="p">)</span>          <span class="c1">// matches value using trie</span>
+<span class="nx">Matcher</span><span class="p">(</span><span class="s">&quot;&lt;string&gt;.value&quot;</span><span class="p">)</span> <span class="c1">// uses trie-based matching for a.value and b.value</span>
+<span class="nx">MatcherRegexp</span><span class="p">(</span><span class="s">&quot;.*value&quot;</span><span class="p">)</span>  <span class="c1">// uses regexp-based matching</span>
+</pre></div>
+</div>
+<p>Host matcher:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;&lt;subdomain&gt;.localhost&quot;</span><span class="p">)</span> <span class="c1">// trie-based matcher for a.localhost, b.localhost, etc.</span>
+<span class="nx">HostRegexp</span><span class="p">(</span><span class="s">&quot;.*localhost&quot;</span><span class="p">)</span>     <span class="c1">// regexp based matcher</span>
+</pre></div>
+</div>
+<p>Path matcher:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/hello/&lt;value&gt;&quot;</span><span class="p">)</span>   <span class="c1">// trie-based matcher for raw request path</span>
+<span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/hello/.*&quot;</span><span class="p">)</span>  <span class="c1">// regexp-based matcher for raw request path</span>
+</pre></div>
+</div>
+<p>Method matcher:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Method</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">)</span>            <span class="c1">// trie-based matcher for request method</span>
+<span class="nx">MethodRegexp</span><span class="p">(</span><span class="s">&quot;POST|PUT&quot;</span><span class="p">)</span> <span class="c1">// regexp based matcher for request method</span>
+</pre></div>
+</div>
+<p>Header matcher:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Header</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/&lt;subtype&gt;&quot;</span><span class="p">)</span> <span class="c1">// trie-based matcher for headers</span>
+<span class="nx">HeaderRegexp</span><span class="p">(</span><span class="s">&quot;Content-Type&quot;</span><span class="p">,</span> <span class="s">&quot;application/.*&quot;</span><span class="p">)</span>  <span class="c1">// regexp based matcher for headers</span>
+</pre></div>
+</div>
+<p>Matchers can be combined using <code class="docutils literal"><span class="pre">&amp;&amp;</span></code> operator:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/v1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Vulcan will join the trie-based matchers into one trie matcher when possible, for example:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/v1&quot;</span><span class="p">)</span>
+<span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/v2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Will be combined into one trie for performance. If you add a third route:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/v2/.*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It wont be joined ito the trie, and would be matched separately instead.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Vulcan can not merge regexp-based routes into efficient structure, so if you have hundreds/thousands of frontends, use trie-based routes!</p>
+</div>
+<div class="section" id="host-based-routing">
+<h4>Host based routing<a class="headerlink" href="#host-based-routing" title="Permalink to this headline">¶</a></h4>
+<p>Vulcand does not require host-specific routing, e.g. the frontend with the following route will match all requests regardless of their hostname:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>curl -H <span class="s2">&quot;Host:example.com&quot;</span> http://localhost/hello <span class="c"># works</span>
+curl -H <span class="s2">&quot;Host:hello.com&quot;</span> http://localhost/hello   <span class="c"># also works</span>
+</pre></div>
+</div>
+<p>In case if you need Host-based routing (just as Apache&#8217;s <code class="docutils literal"><span class="pre">VHost</span></code> or Nginx&#8217;s <code class="docutils literal"><span class="pre">Server</span></code> names), you can use the routes:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;example.com&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">PathRegexp</span><span class="p">(</span><span class="s">&quot;/.*&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre>curl -H <span class="s2">&quot;Host:example.com&quot;</span> http://localhost/hello <span class="c"># works</span>
+curl -H <span class="s2">&quot;Host:hello.com&quot;</span> http://localhost/hello   <span class="c"># not found</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The example above do not set up host entries in Vulcand. You only need them when using HTTPS to supply certificates.</p>
+</div>
+</div>
+<div class="section" id="method-matching">
+<h4>Method matching<a class="headerlink" href="#method-matching" title="Permalink to this headline">¶</a></h4>
+<p>Vulcand works better when creating a separate frontend for each HTTP method in your API:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;POST&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/users&quot;</span><span class="p">)</span>
+<span class="nx">Host</span><span class="p">(</span><span class="s">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Method</span><span class="p">(</span><span class="s">&quot;GET&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s">&quot;/users&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In this case each frontend collects separate set of realtime metrics that are different for creating and gettings users. This separation will provide separate histograms and separate load balancing logic for different request types what helps to understand the performance better.</p>
+</div>
+</div>
+<div class="section" id="listeners">
+<h3>Listeners<a class="headerlink" href="#listeners" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-left">
+<img alt="_images/VulcanListener.png" src="_images/VulcanListener.png" />
+</div>
+<p>Listeners allow attaching and detaching sockets on various interfaces and networks.
+Vulcand can have multiple listeners attached and share the same listener.</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s2">&quot;Protocol&quot;</span><span class="o">:</span><span class="s2">&quot;http&quot;</span><span class="p">,</span>            <span class="c1">// &#39;http&#39; or &#39;https&#39;</span>
+   <span class="s2">&quot;Scope&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>                  <span class="c1">// optional scope field, read below for details</span>
+   <span class="s2">&quot;Address&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="s2">&quot;Network&quot;</span><span class="o">:</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>           <span class="c1">// &#39;tcp&#39; or &#39;unix&#39;</span>
+      <span class="s2">&quot;Address&quot;</span><span class="o">:</span><span class="s2">&quot;localhost:8183&quot;</span> <span class="c1">// &#39;host:port&#39; or &#39;/path/to.socket&#39;</span>
+   <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:8183</span>
+etcdctl <span class="nb">set</span> /vulcand/listeners/ls1<span class="se">\</span>
+           <span class="s1">&#39;{&quot;Protocol&quot;:&quot;http&quot;, &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:8183&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:80</span>
+vctl listener upsert --id ls1 --proto<span class="o">=</span>http --net<span class="o">=</span>tcp -addr<span class="o">=</span>127.0.0.1:8080
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:8183</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/listeners<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Listener&quot;:{&quot;Id&quot;: &quot;ls1&quot;, &quot;Protocol&quot;:&quot;http&quot;, &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:8183&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Listener scopes</strong></p>
+<p>Listeners support scopes as the way to limit operational scope of socket.
+Scope field uses Vulcand <a class="reference internal" href="#routing-language">Routing Language</a>.
+Here&#8217;s an example of Listener that only allows requests with hostname <code class="docutils literal"><span class="pre">example.com</span></code></p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s2">&quot;Protocol&quot;</span><span class="o">:</span><span class="s2">&quot;http&quot;</span><span class="p">,</span>              <span class="c1">// &#39;http&#39; or &#39;https&#39;</span>
+   <span class="s2">&quot;Scope&quot;</span><span class="o">:</span> <span class="s2">&quot;Host(`example.com`)&quot;</span><span class="p">,</span> <span class="c1">// operational scope</span>
+   <span class="s2">&quot;Address&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="s2">&quot;Network&quot;</span><span class="o">:</span><span class="s2">&quot;tcp&quot;</span><span class="p">,</span>           <span class="c1">// &#39;tcp&#39; or &#39;unix&#39;</span>
+      <span class="s2">&quot;Address&quot;</span><span class="o">:</span><span class="s2">&quot;0.0.0.0:8183&quot;</span> <span class="c1">// &#39;host:port&#39; or &#39;/path/to.socket&#39;</span>
+   <span class="p">},</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>E.g. if we have two frontends defined:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">Host</span><span class="p">(</span><span class="s2">&quot;example.com&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s2">&quot;/users&quot;</span><span class="p">)</span>
+<span class="nx">Host</span><span class="p">(</span><span class="s2">&quot;localhost&quot;</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">Path</span><span class="p">(</span><span class="s2">&quot;/users&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Only first frontend is reachable for requests coming to port <code class="docutils literal"><span class="pre">8183</span></code>.</p>
+</div>
+<div class="section" id="middlewares">
+<h3>Middlewares<a class="headerlink" href="#middlewares" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-left">
+<img alt="_images/VulcanMiddleware.png" src="_images/VulcanMiddleware.png" />
+</div>
+<p>Middlewares are allowed to observe, modify and intercept http requests and responses. Vulcand provides several middlewares.
+Users can write their own middlewares for Vulcand in Go.</p>
+<p>To specify execution order of the middlewares, one can define the priority. Middlewares with smaller priority values will be executed first.</p>
+</div>
+<div class="section" id="rate-limits">
+<h3>Rate Limits<a class="headerlink" href="#rate-limits" title="Permalink to this headline">¶</a></h3>
+<p>Vulcan supports controlling request rates. Rate can be checked against different request parameters and is set up via limiting variable.</p>
+<div class="highlight-bash"><div class="highlight"><pre>client.ip                       <span class="c"># client ip</span>
+request.header.X-Special-Header <span class="c"># request header</span>
+</pre></div>
+</div>
+<p>Adding and removing middlewares will modify the frontend behavior in real time. One can set expiring middlewares as well.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/rl1 <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Priority&quot;: 0,</span>
+<span class="s1">   &quot;Type&quot;: &quot;ratelimit&quot;,</span>
+<span class="s1">   &quot;Middleware&quot;:{</span>
+<span class="s1">       &quot;Requests&quot;:1,</span>
+<span class="s1">       &quot;PeriodSeconds&quot;:1,</span>
+<span class="s1">       &quot;Burst&quot;:3,</span>
+<span class="s1">       &quot;Variable&quot;: &quot;client.ip&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+vctl ratelimit upsert -id<span class="o">=</span>rl1 -frontend<span class="o">=</span>f1 -requests<span class="o">=</span><span class="m">1</span> -burst<span class="o">=</span><span class="m">3</span> -period<span class="o">=</span><span class="m">1</span> --priority<span class="o">=</span>0
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Middleware&quot;: {</span>
+<span class="s1">       &quot;Priority&quot;: 0,</span>
+<span class="s1">       &quot;Type&quot;: &quot;ratelimit&quot;,</span>
+<span class="s1">       &quot;Id&quot;: &quot;rl1&quot;,</span>
+<span class="s1">       &quot;Middleware&quot;:{</span>
+<span class="s1">           &quot;Requests&quot;:1,</span>
+<span class="s1">           &quot;PeriodSeconds&quot;:1,</span>
+<span class="s1">           &quot;Burst&quot;:3,</span>
+<span class="s1">           &quot;Variable&quot;: &quot;client.ip&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Programmatic rate limits</strong></p>
+<p>Sometimes you have to change rate limits based on various parameters, e.g. account billing plan. Instead of setting hard-coded rate limits, Vulcand can accept rate limits
+set via headers for each individual request.</p>
+<p>Each HTTP header should contain a JSON-encoded list with rates in the following format:</p>
+<div class="highlight-json"><div class="highlight"><pre><span class="p">[{</span><span class="nt">&quot;PeriodSeconds&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nt">&quot;Requests&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nt">&quot;Burst&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}]</span>
+</pre></div>
+</div>
+<p>That means that you should write a middleware that sets the header to the right value and place it before the ratelimit middleware.</p>
+<p>After it&#8217;s done you can activate the ratelimit plugin:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to get the rates from the X-Custom-Rates.</span>
+<span class="c"># in case if the header is missing, ratelimit will default to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/rl1 <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Id&quot;:&quot;rl1&quot;,</span>
+<span class="s1">   &quot;Priority&quot;:0,</span>
+<span class="s1">   &quot;Type&quot;:&quot;ratelimit&quot;,</span>
+<span class="s1">   &quot;Middleware&quot;:{</span>
+<span class="s1">      &quot;PeriodSeconds&quot;:1,</span>
+<span class="s1">      &quot;Requests&quot;:1,</span>
+<span class="s1">      &quot;Burst&quot;:3,</span>
+<span class="s1">      &quot;Variable&quot;:&quot;client.ip&quot;,</span>
+<span class="s1">      &quot;RateVar&quot;:&quot;request.header.X-Custom-Rates&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to get the rates from the X-Custom-Rates.</span>
+<span class="c"># in case if the header is missing, ratelimit will default to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+vctl ratelimit upsert -id<span class="o">=</span>rl1 -frontend<span class="o">=</span>f1 -requests<span class="o">=</span><span class="m">1</span> -burst<span class="o">=</span><span class="m">3</span> -period<span class="o">=</span><span class="m">1</span> --priority<span class="o">=</span><span class="m">0</span> --rateVar<span class="o">=</span><span class="s2">&quot;request.header.X-Custom-Rates&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Update or set rate limit the request to frontend &quot;f1&quot; to get the rates from the X-Custom-Rates.</span>
+<span class="c"># in case if the header is missing, ratelimit will default to 1 request per second per client ip</span>
+<span class="c"># with bursts up to 3 requests per second.</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares -d <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Middleware&quot;: {</span>
+<span class="s1">       &quot;Id&quot;:&quot;rl1&quot;,</span>
+<span class="s1">       &quot;Priority&quot;:0,</span>
+<span class="s1">       &quot;Type&quot;:&quot;ratelimit&quot;,</span>
+<span class="s1">       &quot;Middleware&quot;:{</span>
+<span class="s1">          &quot;PeriodSeconds&quot;:1,</span>
+<span class="s1">          &quot;Requests&quot;:1,</span>
+<span class="s1">          &quot;Burst&quot;:3,</span>
+<span class="s1">          &quot;Variable&quot;:&quot;client.ip&quot;,</span>
+<span class="s1">          &quot;RateVar&quot;:&quot;request.header.X-Custom-Rates&quot;}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="connection-limits">
+<h3>Connection Limits<a class="headerlink" href="#connection-limits" title="Permalink to this headline">¶</a></h3>
+<p>Connection limits control the amount of simultaneous connections per frontend. Frontends re-use the same variables as rate limits.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># limit the amount of connections per frontend to 16 per client ip</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/cl1<span class="se">\</span>
+       <span class="s1">&#39;{&quot;Priority&quot;: 0, &quot;Type&quot;: &quot;connlimit&quot;, &quot;Middleware&quot;:{&quot;Connections&quot;:16, &quot;Variable&quot;: &quot;client.ip&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># limit the amount of connections per frontend to 16 per client ip</span>
+vctl connlimit upsert -id<span class="o">=</span>cl1 -frontend<span class="o">=</span>f1 -connections<span class="o">=</span><span class="m">1</span> --priority<span class="o">=</span><span class="m">0</span> --variable<span class="o">=</span>client.ip
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># limit the amount of connections per frontend to 16 per client ip</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Middleware&quot;: {&quot;Id&quot;: &quot;cl1&quot;, &quot;Priority&quot;: 0, &quot;Type&quot;: &quot;connlimit&quot;, &quot;Middleware&quot;:{&quot;Connections&quot;:16, &quot;Variable&quot;: &quot;client.ip&quot;}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="rewrites-and-redirects">
+<h3>Rewrites and redirects<a class="headerlink" href="#rewrites-and-redirects" title="Permalink to this headline">¶</a></h3>
+<p>Rewrite plugin enables rewriting request URLs, returning redirect responses and changing response bodies.</p>
+<p><strong>Rewrites</strong></p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># remove /foo prefix from the url</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/r1 <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">   &quot;Priority&quot;:1,</span>
+<span class="s1">   &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">   &quot;Middleware&quot;:{</span>
+<span class="s1">      &quot;Regexp&quot;:&quot;/foo(.*)&quot;,</span>
+<span class="s1">      &quot;Replacement&quot;:&quot;$1&quot;,</span>
+<span class="s1">      &quot;RewriteBody&quot;:false,</span>
+<span class="s1">      &quot;Redirect&quot;:false}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># remove /foo prefix from the url, note the single quotes for &#39;$1&#39;</span>
+vctl rewrite upsert -f f1 -id r1 --regexp<span class="o">=</span><span class="s2">&quot;/foo(.*)&quot;</span> --replacement<span class="o">=</span><span class="s1">&#39;$1&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># remove /foo prefix from the url</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Middleware&quot;: {</span>
+<span class="s1">         &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">         &quot;Priority&quot;:1,</span>
+<span class="s1">         &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">         &quot;Middleware&quot;:{</span>
+<span class="s1">            &quot;Regexp&quot;:&quot;/foo(.*)&quot;,</span>
+<span class="s1">            &quot;Replacement&quot;:&quot;$1&quot;,</span>
+<span class="s1">            &quot;RewriteBody&quot;:false,</span>
+<span class="s1">            &quot;Redirect&quot;:false}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Redirects</strong></p>
+<p>Setting a <code class="docutils literal"><span class="pre">redirect</span></code> parameter to rewrite will make it to generate <code class="docutils literal"><span class="pre">302</span> <span class="pre">Found</span></code> response with <code class="docutils literal"><span class="pre">Location</span></code> header
+set to the new URL:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># remove /foo prefix from the url</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/r1 <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">   &quot;Priority&quot;:1,</span>
+<span class="s1">   &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">   &quot;Middleware&quot;:{</span>
+<span class="s1">      &quot;Regexp&quot;:&quot;^http://localhost/(.*)&quot;,</span>
+<span class="s1">      &quot;Replacement&quot;:&quot;https://localhost/$1&quot;,</span>
+<span class="s1">      &quot;RewriteBody&quot;:false,</span>
+<span class="s1">      &quot;Redirect&quot;:true}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># redirect http requests to https location</span>
+vctl rewrite upsert -f f1 -id r1 --regexp<span class="o">=</span><span class="s2">&quot;^http://localhost/(.*)&quot;</span> --replacement<span class="o">=</span><span class="s1">&#39;https://localhost/$1&#39;</span> --redirect
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># remove /foo prefix from the url</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Middleware&quot;: {</span>
+<span class="s1">         &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">         &quot;Priority&quot;:1,</span>
+<span class="s1">         &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">         &quot;Middleware&quot;:{</span>
+<span class="s1">            &quot;Regexp&quot;:&quot;^http://localhost/(.*)&quot;,</span>
+<span class="s1">            &quot;Replacement&quot;:&quot;https://localhost/$1&quot;,</span>
+<span class="s1">            &quot;RewriteBody&quot;:false,</span>
+<span class="s1">            &quot;Redirect&quot;:true}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Templating</strong></p>
+<p>Rewrite can treat the response body as a template. Consider the following example:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># treat response body as a template</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/r1 <span class="s1">&#39;{</span>
+<span class="s1">   &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">   &quot;Priority&quot;:1,</span>
+<span class="s1">   &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">   &quot;Middleware&quot;:{&quot;RewriteBody&quot;:true}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># treat response body as a template</span>
+vctl rewrite upsert -f f1 -id r1 --rewriteBody
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># treat response body as a template</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Middleware&quot;: {</span>
+<span class="s1">         &quot;Id&quot;:&quot;r1&quot;,</span>
+<span class="s1">         &quot;Priority&quot;:1,</span>
+<span class="s1">         &quot;Type&quot;:&quot;rewrite&quot;,</span>
+<span class="s1">         &quot;Middleware&quot;:{&quot;RewriteBody&quot;:true}}}&#39;</span>
+</pre></div>
+</div>
+<p>The backend server can now reply:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="nx">handler</span> <span class="o">:=</span> <span class="nx">http</span><span class="p">.</span><span class="nx">HandlerFunc</span><span class="p">(</span><span class="kd">func</span><span class="p">(</span><span class="nx">w</span> <span class="nx">http</span><span class="p">.</span><span class="nx">ResponseWriter</span><span class="p">,</span> <span class="nx">req</span> <span class="o">*</span><span class="nx">http</span><span class="p">.</span><span class="nx">Request</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">w</span><span class="p">.</span><span class="nx">WriteHeader</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+        <span class="nx">w</span><span class="p">.</span><span class="nx">Write</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="s">`{&quot;foo&quot;: &quot;{{.Request.Header.Get &quot;variable-value&quot;}}&quot;}`</span><span class="p">))</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<p>And the client will get as a response:</p>
+<div class="highlight-go"><div class="highlight"><pre><span class="p">{</span><span class="s">&quot;foo&quot;</span><span class="p">:</span> <span class="s">&quot;variable-value&quot;</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="structured-logs">
+<h3>Structured logs<a class="headerlink" href="#structured-logs" title="Permalink to this headline">¶</a></h3>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">We are still polishing the log format, so it may change soon.</p>
+</div>
+<p><code class="docutils literal"><span class="pre">trace</span></code> plugin supports output in syslog-compatible format of the structured logs to UDP or Unix socket.</p>
+<p>Here&#8217;s the example of the log entry:</p>
+<div class="highlight-bash"><div class="highlight"><pre>Jan <span class="m">13</span> 15:07:51 vulcan pid:<span class="o">[</span>3634<span class="o">]</span>: @cee: <span class="o">{</span><span class="s2">&quot;request&quot;</span>:<span class="o">{</span><span class="s2">&quot;method&quot;</span>:<span class="s2">&quot;GET&quot;</span>,<span class="s2">&quot;url&quot;</span>:<span class="s2">&quot;http://h:5000&quot;</span><span class="o">}</span>,<span class="s2">&quot;response&quot;</span>:<span class="o">{</span><span class="s2">&quot;code&quot;</span>:404,<span class="s2">&quot;roundtrip&quot;</span>:0.333712<span class="o">}}</span>
+</pre></div>
+</div>
+<p>The prefix is a standard syslog prefix, and the part after <code class="docutils literal"><span class="pre">&#64;cee:</span></code> is a structured log entry. Here&#8217;s the entry format explained:</p>
+<div class="highlight-js"><div class="highlight"><pre><span class="p">{</span>
+ <span class="s2">&quot;request&quot;</span><span class="o">:</span> <span class="p">{</span>
+   <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;GET&quot;</span><span class="p">,</span>                   <span class="c1">// request method</span>
+   <span class="s2">&quot;url&quot;</span><span class="o">:</span> <span class="s2">&quot;http://localhost:5000&quot;</span><span class="p">,</span>    <span class="c1">// request URL</span>
+   <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>                       <span class="c1">// optional captured request headers</span>
+     <span class="s2">&quot;User-Agent&quot;</span><span class="o">:</span> <span class="p">[</span>                  <span class="c1">// captured request User-Agent header values</span>
+       <span class="s2">&quot;curl\/7.35.0&quot;</span>
+     <span class="p">]</span>
+   <span class="p">},</span>
+   <span class="s2">&quot;tls&quot;</span><span class="o">:</span> <span class="p">{</span>                           <span class="c1">// tls is an optonal field, used when it&#39;s a TLS connection</span>
+     <span class="s2">&quot;version&quot;</span><span class="o">:</span> <span class="s2">&quot;TLS12&quot;</span><span class="p">,</span>              <span class="c1">// TLS version used</span>
+     <span class="s2">&quot;resume&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>                 <span class="c1">// whether it&#39;s a session resumed with session ticket</span>
+     <span class="s2">&quot;cipher_suite&quot;</span><span class="o">:</span> <span class="s2">&quot;TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA&quot;</span><span class="p">,</span> <span class="c1">// cipher used in a connection</span>
+     <span class="s2">&quot;server&quot;</span><span class="o">:</span> <span class="s2">&quot;vulcand.io&quot;</span>           <span class="c1">// server name used in SNI</span>
+   <span class="p">}</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;response&quot;</span><span class="o">:</span> <span class="p">{</span>
+   <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="mi">404</span><span class="p">,</span>                     <span class="c1">// response code</span>
+   <span class="s2">&quot;roundtrip&quot;</span><span class="o">:</span> <span class="mf">0.408372</span><span class="p">,</span>           <span class="c1">// roundtrip in milliseconds, part after &#39;.&#39; is microseconds</span>
+   <span class="s2">&quot;headers&quot;</span><span class="o">:</span> <span class="p">{</span>                     <span class="c1">// optional captured response headers</span>
+     <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="p">[</span>
+       <span class="s2">&quot;text\/plain; charset=utf-8&quot;</span> <span class="c1">// captured response Content-Type header values</span>
+     <span class="p">]</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Adding and removing trace middleware will turn on/off tracing in real time.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># turn tracing on, pointing output to unix syslog facility.</span>
+<span class="c"># capture request header values &#39;X-A&#39; and &#39;X-B&#39; and response headers &#39;X-C&#39; and &#39;X-D&#39;</span>
+etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/t1 <span class="s1">&#39;{</span>
+<span class="s1">  &quot;Id&quot;:&quot;t1&quot;,</span>
+<span class="s1">  &quot;Priority&quot;:1,</span>
+<span class="s1">  &quot;Type&quot;:&quot;trace&quot;,</span>
+<span class="s1">  &quot;Middleware&quot;:{</span>
+<span class="s1">    &quot;ReqHeaders&quot;:[&quot;X-A&quot;,&quot;X-B&quot;],</span>
+<span class="s1">    &quot;RespHeaders&quot;:[&quot;X-C&quot;,&quot;X-D&quot;],</span>
+<span class="s1">    &quot;Addr&quot;:&quot;syslog://&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># turn tracing on, pointing output to unix syslog facility.</span>
+<span class="c"># capture request header values &#39;X-A&#39; and &#39;X-B&#39; and response headers &#39;X-C&#39; and &#39;X-D&#39;</span>
+vctl trace upsert -f f1 -id t1 --addr<span class="o">=</span><span class="s1">&#39;syslog://&#39;</span><span class="se">\</span>
+   --reqHeader<span class="o">=</span>X-A --reqHeader<span class="o">=</span>X-B --respHeader<span class="o">=</span>X-C --respHeader<span class="o">=</span>X-D
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># turn tracing on, pointing output to unix syslog facility.</span>
+<span class="c"># capture request header values &#39;X-A&#39; and &#39;X-B&#39; and response headers &#39;X-C&#39; and &#39;X-D&#39;</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/frontends/f1/middlewares -d <span class="s1">&#39;{</span>
+<span class="s1">  &quot;Middleware&quot;: {</span>
+<span class="s1">  &quot;Id&quot;:&quot;t1&quot;,</span>
+<span class="s1">  &quot;Priority&quot;:1,</span>
+<span class="s1">  &quot;Type&quot;:&quot;trace&quot;,</span>
+<span class="s1">  &quot;Middleware&quot;:{</span>
+<span class="s1">    &quot;ReqHeaders&quot;:[&quot;X-A&quot;,&quot;X-B&quot;],</span>
+<span class="s1">    &quot;RespHeaders&quot;:[&quot;X-C&quot;,&quot;X-D&quot;],</span>
+<span class="s1">    &quot;Addr&quot;:&quot;syslog://&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<p><strong>Controlling output</strong></p>
+<p>You can control output using the following form of address values:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="c"># UDP socket formats</span>
+syslog://localhost:5000                        <span class="c"># host localhost, port 5000, LOG_LOCAL0 facility</span>
+syslog://localhost:5000?f<span class="o">=</span>MAIL<span class="p">&amp;</span><span class="nv">sev</span><span class="o">=</span>INFO        <span class="c"># host localhost, port 5000, MAIL facility, INFO severity</span>
+syslog://localhost:5000?f<span class="o">=</span>MAIL                 <span class="c"># host localhost, port 5000, MAIL facility, INFO severity</span>
+syslog://localhost:5000?f<span class="o">=</span>LOG_LOCAL0<span class="p">&amp;</span><span class="nv">sev</span><span class="o">=</span>DEBUG <span class="c"># host localhost, port 5000, LOG_LOCAL0 facility, INFO severity</span>
+
+<span class="c"># unixgram  socket format</span>
+syslog:///tmp/out.sock            <span class="c"># /tmp/out.sock unixgram socket</span>
+syslog:///tmp/out.sock?f<span class="o">=</span>MAIL     <span class="c"># /tmp/out.sock unixgram socket</span>
+
+<span class="c"># default syslog</span>
+syslog://                        <span class="c"># default OS-specific unix/unixgram socket</span>
+syslog://?f<span class="o">=</span>LOG_LOCAL0<span class="p">&amp;</span><span class="nv">sev</span><span class="o">=</span>INFO  <span class="c"># default OS-specific unix/unixgram socket</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="circuit-breakers">
+<h3>Circuit Breakers<a class="headerlink" href="#circuit-breakers" title="Permalink to this headline">¶</a></h3>
+<div class="figure align-left">
+<img alt="_images/CircuitStandby.png" src="_images/CircuitStandby.png" />
+</div>
+<p>Circuit breaker is a special middleware that is designed to provide a fail-over action in case if service has degraded.
+It is very helpful to prevent cascading failures - where the failure of the one service leads to failure of another.
+Circuit breaker observes requests statistics and checks the stats against special error condition.</p>
+<div class="figure align-left">
+<img alt="_images/CircuitTripped.png" src="_images/CircuitTripped.png" />
+</div>
+<p>In case if condition matches, CB activates the fallback scenario: returns the response code or redirects the request to another frontend.</p>
+<p><strong>Circuit Breaker states</strong></p>
+<p>CB provides a set of explicit states and transitions explained below:</p>
+<div class="figure align-left">
+<img alt="_images/CBFSM.png" src="_images/CBFSM.png" />
+</div>
+<ul class="simple">
+<li>Initial state is <code class="docutils literal"><span class="pre">Standby</span></code>. CB observes the statistics and does not modify the request.</li>
+<li>In case if condition matches, CB enters <code class="docutils literal"><span class="pre">Tripped</span></code> state, where it responds with predefines code or redirects to another frontend.</li>
+<li>CB can execute the special HTTP callback when going from <code class="docutils literal"><span class="pre">Standby</span></code> to <code class="docutils literal"><span class="pre">Tripped</span></code> state</li>
+<li>CB sets a special timer that defines how long does it spend in the <code class="docutils literal"><span class="pre">Tripped</span></code> state</li>
+<li>Once <code class="docutils literal"><span class="pre">Tripped</span></code> timer expires, CB enters <code class="docutils literal"><span class="pre">Recovering</span></code> state and resets all stats</li>
+<li>In <code class="docutils literal"><span class="pre">Recovering</span></code> state Vulcand will start routing the portion of the traffic linearly increasing it over the period specified in <code class="docutils literal"><span class="pre">Recovering</span></code> timer.</li>
+<li>In case if the condition matches in <code class="docutils literal"><span class="pre">Recovering</span></code> state, CB enters <code class="docutils literal"><span class="pre">Tripped</span></code> state again</li>
+<li>In case if the condition does not match and recovery timer expries, CB enters <code class="docutils literal"><span class="pre">Standby</span></code> state.</li>
+<li>CB can execute the special HTTP callback when going from <code class="docutils literal"><span class="pre">Recovering</span></code> to <code class="docutils literal"><span class="pre">Standby</span></code> state</li>
+</ul>
+<p><strong>Conditions</strong></p>
+<p>CB defines a simple language that allows us to specify simple conditions that watch the stats for a frontend:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="nx">NetworkErrorRatio</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.5</span>      <span class="c1">// watch error ratio over 10 second sliding window for a frontend</span>
+<span class="nx">LatencyAtQuantileMS</span><span class="p">(</span><span class="mf">50.0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span> <span class="c1">// watch latency at quantile in milliseconds.</span>
+<span class="nx">ResponseCodeRatio</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">600</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">600</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="c1">// ratio of response codes in range [500-600) to  [0-600)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Quantiles should be provided as floats - don&#8217;t forget to add .0 to hint it as float</p>
+</div>
+<p><strong>Response fallback</strong></p>
+<p>Response fallback will tell CB to reply with a predefined response instead of forwarding the request to the backend</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s2">&quot;Type&quot;</span><span class="o">:</span> <span class="s2">&quot;response&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;Action&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;ContentType&quot;</span><span class="o">:</span> <span class="s2">&quot;text/plain&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;StatusCode&quot;</span><span class="o">:</span> <span class="mi">400</span><span class="p">,</span>
+      <span class="s2">&quot;Body&quot;</span><span class="o">:</span> <span class="s2">&quot;Come back later&quot;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Redirect fallback</strong></p>
+<p>Redirect fallback will redirect the request to another frontend.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It won&#8217;t work for frontends not defined in the Vulcand config.</p>
+</div>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+   <span class="s2">&quot;Type&quot;</span><span class="o">:</span> <span class="s2">&quot;redirect&quot;</span><span class="p">,</span>
+   <span class="s2">&quot;Action&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;URL&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com/fallback&quot;</span>
+   <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Webhook Action</strong></p>
+<p>Circuit breaker can notify extenral sources on it&#8217;s state transitions, e.g. it can create a pager duty incident by issuing a webhook:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+ <span class="s2">&quot;Body&quot;</span><span class="o">:</span> <span class="p">{</span>
+     <span class="s2">&quot;client&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample Monitoring Service&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;client_url&quot;</span><span class="o">:</span> <span class="s2">&quot;https://example.com&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;FAILURE for production/HTTP on machine srv01.acme.com&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;event_type&quot;</span><span class="o">:</span> <span class="s2">&quot;trigger&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;incident_key&quot;</span><span class="o">:</span> <span class="s2">&quot;srv01/HTTP&quot;</span><span class="p">,</span>
+     <span class="s2">&quot;service_key&quot;</span><span class="o">:</span> <span class="s2">&quot;-pager-duty-service-key&quot;</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;Headers&quot;</span><span class="o">:</span> <span class="p">{</span>
+     <span class="s2">&quot;Content-Type&quot;</span><span class="o">:</span> <span class="p">[</span>
+         <span class="s2">&quot;application/json&quot;</span>
+     <span class="p">]</span>
+ <span class="p">},</span>
+ <span class="s2">&quot;Method&quot;</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+ <span class="s2">&quot;URL&quot;</span><span class="o">:</span> <span class="s2">&quot;https://events.pagerduty.com/generic/2010-04-15/create_event.json&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Setup</strong></p>
+<p>Circuit breaker setup is can be done via Etcd, command line or API:</p>
+<div class="highlight-etcd"><div class="highlight"><pre>etcdctl <span class="nb">set</span> /vulcand/frontends/f1/middlewares/cb1 <span class="s1">&#39;{</span>
+<span class="s1">             &quot;Id&quot;:&quot;cb1&quot;,</span>
+<span class="s1">             &quot;Priority&quot;:1,</span>
+<span class="s1">             &quot;Type&quot;:&quot;cbreaker&quot;,</span>
+<span class="s1">             &quot;Middleware&quot;:{</span>
+<span class="s1">                &quot;Condition&quot;:&quot;NetworkErrorRatio() &gt; 0.5&quot;,</span>
+<span class="s1">                &quot;Fallback&quot;:{&quot;Type&quot;: &quot;response&quot;, &quot;Action&quot;: {&quot;StatusCode&quot;: 400, &quot;Body&quot;: &quot;Come back later&quot;}},</span>
+<span class="s1">                &quot;FallbackDuration&quot;: 10000000000,</span>
+<span class="s1">                &quot;RecoveryDuration&quot;: 10000000000,</span>
+<span class="s1">                &quot;CheckPeriod&quot;: 100000000</span>
+<span class="s1">             }</span>
+<span class="s1">           }&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre>vctl cbreaker upsert <span class="se">\</span>
+                  --frontend<span class="o">=</span>f1 <span class="se">\</span>
+                  --id<span class="o">=</span>cb1<span class="se">\</span>
+                  --condition<span class="o">=</span><span class="s2">&quot;NetworkErrorRatio() &gt; 0.5&quot;</span> <span class="se">\</span>
+                  --fallback<span class="o">=</span><span class="s1">&#39;{&quot;Type&quot;: &quot;response&quot;, &quot;Action&quot;: {&quot;StatusCode&quot;: 400, &quot;Body&quot;: &quot;Come back later&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span><span class="se">\</span>
+     http://localhost:8182/v2/frontends/f1/middlewares<span class="se">\</span>
+     -d <span class="s1">&#39;{</span>
+<span class="s1">          &quot;Middleware&quot;: {</span>
+<span class="s1">             &quot;Id&quot;:&quot;cb1&quot;,</span>
+<span class="s1">             &quot;Priority&quot;:1,</span>
+<span class="s1">             &quot;Type&quot;:&quot;cbreaker&quot;,</span>
+<span class="s1">             &quot;Middleware&quot;:{</span>
+<span class="s1">                &quot;Condition&quot;:&quot;NetworkErrorRatio() &gt; 0.5&quot;,</span>
+<span class="s1">                &quot;Fallback&quot;:{</span>
+<span class="s1">                   &quot;Type&quot;: &quot;response&quot;,</span>
+<span class="s1">                   &quot;Action&quot;: {&quot;StatusCode&quot;: 400, &quot;Body&quot;: &quot;Come back later&quot;}</span>
+<span class="s1">                },</span>
+<span class="s1">                &quot;FallbackDuration&quot;: 10000000000,</span>
+<span class="s1">                &quot;RecoveryDuration&quot;: 10000000000,</span>
+<span class="s1">                &quot;CheckPeriod&quot;: 100000000</span>
+<span class="s1">             }</span>
+<span class="s1">           }</span>
+<span class="s1">        }&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="tls">
+<h2>TLS<a class="headerlink" href="#tls" title="Permalink to this headline">¶</a></h2>
+<p>Vulcand supports HTTPS via <a class="reference external" href="http://en.wikipedia.org/wiki/Server_Name_Indication">SNI</a>, certificate management and multiple HTTPS servers per running process.
+This sections below contain all the steps required to enable TLS support in Vulcand</p>
+<div class="section" id="managing-certificates">
+<h3>Managing certificates<a class="headerlink" href="#managing-certificates" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand encrypts certificates when storing them in the backends and uses <a class="reference external" href="https://godoc.org/code.google.com/p/go.crypto/nacl/secretbox">Nacl secretbox</a> to seal the data.
+The running server acts as an encryption/decryption point when reading and writing certificates.</p>
+<p>This special key has to be generated by Vulcand using command line utility:</p>
+<p><strong>Setting up seal key</strong></p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>vctl secret new_key
+</pre></div>
+</div>
+<p>Once we got the key, we can pass it to the running daemon. This key will be used by Vulcand to encrypt and decrypt stored certificates and private keys.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>vulcand -sealKey<span class="o">=</span><span class="s2">&quot;the-seal-key&quot;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Add space before command to avoid leaking seal key in bash history, or use <code class="docutils literal"><span class="pre">HISTIGNORE</span></code></p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Vulcand needs the <cite>sealKey</cite> to use TLS, without it simply will refuse to set the certificates for host.</p>
+</div>
+<p><strong>Setting host keypair</strong></p>
+<p>Setting certificate via etcd is slightly different from CLI and API:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Read the private key and certificate and returns back the encrypted version that can be passed to etcd</span>
+<span class="nv">$ </span>vctl secret seal_keypair -sealKey &lt;seal-key&gt; -cert<span class="o">=</span>&lt;/path-to/chain.crt&gt; -privateKey<span class="o">=</span>&lt;/path-to/key&gt;
+
+<span class="c"># Once we got the certificate sealed, we can pass it to the Etcd:</span>
+etcdctl <span class="nb">set</span> /vulcand/hosts/mailgun.com/host <span class="s1">&#39;{&quot;Settings&quot;: {&quot;KeyPair&quot;: {..encrypted data...}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Connect to Vulcand Update the TLS certificate.</span>
+<span class="c"># In this case we don&#39;t need to supply seal key, as in this case the CLI talks to the Vulcand directly</span>
+<span class="nv">$ </span>vctl host upsert -name &lt;host&gt; -cert<span class="o">=</span>&lt;/path-to/chain.crt&gt; -privateKey<span class="o">=</span>&lt;/path-to/key&gt;
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># In this case we don&#39;t need to supply seal key, as in this case the CLI talks to the Vulcand directly</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/hosts<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Host&quot;: {&quot;Name&quot;: &quot;localhost&quot;, &quot;Settings&quot;: {&quot;KeyPair&quot;: {&quot;Cert&quot;: &quot;base64-encoded-certificate&quot;, &quot;Key&quot;: &quot;base64-encoded-key-string&quot;}}}}&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To update the certificate in the live mode just repeat the steps with the new certificate, vulcand will gracefully reload the TLS config for running server</p>
+</div>
+</div>
+<div class="section" id="ocsp">
+<h3>OCSP<a class="headerlink" href="#ocsp" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol">Online Certificate Status Protocol</a> is a protocol for certificate revocation checking. Vulcand checks OCSP status in the background and
+includes the OCSP staple response in the TLS handshake when this feature turned on.
+By default it is turned off, mostly because it provides <a class="reference external" href="https://www.imperialviolet.org/2014/04/19/revchecking.html">questionable benefits</a>.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Set keypair and OCSP settings</span>
+etcdctl <span class="nb">set</span> /vulcand/hosts/localhost/host <span class="s1">&#39;{&quot;Settings&quot;:</span>
+<span class="s1">    {&quot;KeyPair&quot;: {...}, &quot;OCSP&quot;:{&quot;Enabled&quot;:true,&quot;Period&quot;:&quot;1h0m0s&quot;,&quot;Responders&quot;:[],&quot;SkipSignatureCheck&quot;:false}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># set keypair and OCSP settings</span>
+<span class="c"># --ocsp               // turn OCSP on</span>
+<span class="c"># --ocspSkipCheck      // insecure: skip OCSP signature check</span>
+<span class="c"># --ocspPeriod=&#39;1h&#39;    //  override OCSP check period defined in the certificate, use &#39;1h&#39;,&#39;30m&#39; as time periods</span>
+<span class="c"># --ocspResponder      //   optional OCSP responder, use multiple args for responder list</span>
+vctl host upsert -name example.com -cert<span class="o">=</span>&lt;/path-to/chain.crt&gt; -privateKey<span class="o">=</span>&lt;/path-to/key&gt;<span class="se">\</span>
+  --ocsp
+  --ocspSkipCheck
+  --ocspPeriod<span class="o">=</span><span class="s1">&#39;1h&#39;</span>
+  --ocspResponder<span class="o">=</span><span class="s2">&quot;http://example.com/respond&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c">#set keypair and OCSP settings</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/hosts<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Host&quot;: {</span>
+<span class="s1">            &quot;Name&quot;: &quot;localhost&quot;,</span>
+<span class="s1">            &quot;Settings&quot;: {</span>
+<span class="s1">               &quot;KeyPair&quot;: {&quot;Cert&quot;: &quot;base64&quot;, Key: &quot;base64&quot;},</span>
+<span class="s1">                &quot;OCSP&quot;:{</span>
+<span class="s1">                    &quot;Enabled&quot;:true,</span>
+<span class="s1">                    &quot;Period&quot;:&quot;1h0m0s&quot;,</span>
+<span class="s1">                    &quot;Responders&quot;:[],</span>
+<span class="s1">                    &quot;SkipSignatureCheck&quot;:false}}}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h3>SNI<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Not all clients support SNI, or sometimes host name is not available. In this case you can set the <code class="docutils literal"><span class="pre">default</span></code> certificate that will be returned in case if the SNI is not available:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Set example.com as default host returned in case if SNI is not available</span>
+etcdctl <span class="nb">set</span> /vulcand/hosts/example.com/host <span class="s1">&#39;{&quot;Settings&quot;: {&quot;Default&quot;: true, &quot;KeyPair&quot;: {...}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="session-tickets">
+<h3>Session Tickets<a class="headerlink" href="#session-tickets" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="http://en.wikipedia.org/wiki/Transport_Layer_Security#Session_tickets">Session tickets</a> is a way to resume TLS connection, saving time on a TLS handshake.
+Vulcand supports in-memory session tickets cache for HTTPS listeners and backend pools. Session tickets are enabled by default</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:9443, uses session ticket LRU cache of 1024</span>
+etcdctl <span class="nb">set</span> /vulcand/listeners/ls1<span class="se">\</span>
+           <span class="s1">&#39;{&quot;Id&quot;:&quot;ls1&quot;,&quot;Protocol&quot;:&quot;https&quot;,&quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;,&quot;Address&quot;:&quot;127.0.0.1:9443&quot;},</span>
+<span class="s1">             &quot;Settings&quot;:{</span>
+<span class="s1">               &quot;TLS&quot;:{</span>
+<span class="s1">                 &quot;SessionTicketsDisabled&quot;:false,</span>
+<span class="s1">                 &quot;SessionCache&quot;:{&quot;Type&quot;:&quot;LRU&quot;,&quot;Settings&quot;:{&quot;Capacity&quot;:1024}}}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:9443, uses session ticket LRU cache of 1024</span>
+vctl listener upsert --id ls1 --proto<span class="o">=</span>https --net<span class="o">=</span>tcp -addr<span class="o">=</span>127.0.0.1:9443<span class="se">\</span>
+     -tlsSessionCache<span class="o">=</span>LRU -tlsSessionCacheCapacity<span class="o">=</span>1024
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443, uses session ticket LRU cache of 1024</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/listeners<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Listener&quot;:</span>
+<span class="s1">            {&quot;Id&quot;: &quot;ls1&quot;, &quot;Protocol&quot;:&quot;https&quot;,</span>
+<span class="s1">             &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:443&quot;},</span>
+<span class="s1">             &quot;Settings&quot;:{</span>
+<span class="s1">                &quot;TLS&quot;:{</span>
+<span class="s1">                   &quot;SessionTicketsDisabled&quot;:false,</span>
+<span class="s1">                    &quot;SessionCache&quot;:{&quot;Type&quot;:&quot;LRU&quot;,&quot;Settings&quot;:{&quot;Capacity&quot;:1024}}}}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="cipher-suites">
+<h3>Cipher Suites<a class="headerlink" href="#cipher-suites" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand supports cipher suites currently implemented in <a class="reference external" href="http://golang.org/pkg/crypto/tls">go crypto/tls standard lib</a>:</p>
+<div class="highlight-bash"><div class="highlight"><pre>TLS_RSA_WITH_RC4_128_SHA
+TLS_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_RC4_128_SHA
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_RC4_128_SHA
+TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+</pre></div>
+</div>
+<p>By default, the following cipher suites are selected, in the order of preference:</p>
+<div class="highlight-bash"><div class="highlight"><pre>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA
+TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA
+TLS_RSA_WITH_AES_256_CBC_SHA
+TLS_RSA_WITH_AES_128_CBC_SHA
+</pre></div>
+</div>
+<p>Here&#8217;s an example of how to configure cipher suites for HTTPS listener</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:9443, uses session ticket LRU cache of 1024</span>
+etcdctl <span class="nb">set</span> /vulcand/listeners/ls1<span class="se">\</span>
+           <span class="s1">&#39;{&quot;Id&quot;:&quot;ls1&quot;,&quot;Protocol&quot;:&quot;https&quot;,&quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;,&quot;Address&quot;:&quot;127.0.0.1:9443&quot;},</span>
+<span class="s1">             &quot;Settings&quot;:{</span>
+<span class="s1">               &quot;TLS&quot;:{</span>
+<span class="s1">                 &quot;CipherSuites&quot;:[</span>
+<span class="s1">                    &quot;TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256&quot;,</span>
+<span class="s1">                    &quot;TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256&quot;]}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443 with customized cipher suite list</span>
+vctl listener upsert --id ls1 --proto<span class="o">=</span>https --net<span class="o">=</span>tcp -addr<span class="o">=</span>127.0.0.1:9443<span class="se">\</span>
+      --tlsCS<span class="o">=</span>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 --tlsCS<span class="o">=</span>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443, uses session ticket LRU cache of 1024</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/listeners<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Listener&quot;: {&quot;Id&quot;: &quot;ls1&quot;, &quot;Protocol&quot;:&quot;https&quot;, &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:9443&quot;},</span>
+<span class="s1">          &quot;Settings&quot;:{</span>
+<span class="s1">               &quot;TLS&quot;:{</span>
+<span class="s1">                 &quot;CipherSuites&quot;:[</span>
+<span class="s1">                    &quot;TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256&quot;,</span>
+<span class="s1">                    &quot;TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256&quot;]}}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="tls-options">
+<h3>TLS options<a class="headerlink" href="#tls-options" title="Permalink to this headline">¶</a></h3>
+<p>Both HTTPS listeners and backends support some other TLS options:</p>
+<ul class="simple">
+<li>Insecure: skipping certificate checks</li>
+<li>Setting minimum and maximum supported version</li>
+<li>Setting a server preference when selecting a cipher suite.</li>
+</ul>
+<p>Here&#8217;s an example on how to set these options for HTTPS listener. Note that you can use the same parameters for backends as well.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:9443, uses session ticket LRU cache of 1024</span>
+etcdctl <span class="nb">set</span> /vulcand/listeners/ls1 <span class="s1">&#39;{</span>
+<span class="s1">    &quot;Id&quot;:&quot;ls1&quot;,</span>
+<span class="s1">    &quot;Protocol&quot;:&quot;https&quot;,</span>
+<span class="s1">    &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;,&quot;Address&quot;:&quot;127.0.0.1:9443&quot;},</span>
+<span class="s1">    &quot;Settings&quot;:{</span>
+<span class="s1">        &quot;TLS&quot;:{</span>
+<span class="s1">            &quot;PreferServerCipherSuites&quot;:true,</span>
+<span class="s1">            &quot;InsecureSkipVerify&quot;:true,</span>
+<span class="s1">            &quot;MinVersion&quot;:&quot;VersionTLS10&quot;,</span>
+<span class="s1">            &quot;MaxVersion&quot;:&quot;VersionTLS11&quot;,</span>
+<span class="s1">            &quot;SessionTicketsDisabled&quot;:true}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:9443 with customized cipher suite list</span>
+vctl listener upsert --id ls1 --proto<span class="o">=</span>https --net<span class="o">=</span>tcp -addr<span class="o">=</span>127.0.0.1:9443<span class="se">\</span>
+    --tlsSkipVerify --tlsSessionTicketsOff --tlsMinV<span class="o">=</span>VersionTLS10 --tlsMaxV<span class="o">=</span>VersionTLS11 --tlsPreferServerCS
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443, uses session ticket LRU cache of 1024</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/listeners<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Listener&quot;: {</span>
+<span class="s1">          &quot;Id&quot;:&quot;ls1&quot;,</span>
+<span class="s1">          &quot;Protocol&quot;:&quot;https&quot;,</span>
+<span class="s1">          &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;,&quot;Address&quot;:&quot;127.0.0.1:9443&quot;},</span>
+<span class="s1">          &quot;Settings&quot;:{</span>
+<span class="s1">              &quot;TLS&quot;:{</span>
+<span class="s1">                  &quot;PreferServerCipherSuites&quot;:true,</span>
+<span class="s1">                  &quot;InsecureSkipVerify&quot;:true,</span>
+<span class="s1">                  &quot;MinVersion&quot;:&quot;VersionTLS10&quot;,</span>
+<span class="s1">                  &quot;MaxVersion&quot;:&quot;VersionTLS11&quot;,</span>
+<span class="s1">                  &quot;SessionTicketsDisabled&quot;:true}}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="https-listeners">
+<h3>HTTPS listeners<a class="headerlink" href="#https-listeners" title="Permalink to this headline">¶</a></h3>
+<p>Once we have the certificate set, we can create HTTPS listeners for the host:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443</span>
+etcdctl <span class="nb">set</span> /vulcand/listeners/ls1<span class="se">\</span>
+           <span class="s1">&#39;{&quot;Protocol&quot;:&quot;https&quot;, &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:443&quot;}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443</span>
+vctl listener upsert --id ls1 --proto<span class="o">=</span>https --net<span class="o">=</span>tcp -addr<span class="o">=</span>127.0.0.1:443
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Add http listener accepting requests on 127.0.0.1:443</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/listeners<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Listener&quot;:</span>
+<span class="s1">            {&quot;Id&quot;: &quot;ls1&quot;, &quot;Protocol&quot;:&quot;https&quot;, &quot;Address&quot;:{&quot;Network&quot;:&quot;tcp&quot;, &quot;Address&quot;:&quot;127.0.0.1:443&quot;}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="https-backends">
+<h3>HTTPS Backends<a class="headerlink" href="#https-backends" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand supports HTTPS backends out of the box, with default TLS settings. All TLS options described in the sections above, like session tickets, cipher suites and TLS versions
+are available for HTTPS backends as well.</p>
+<p>Here&#8217;s how you can modify TLS settings for a backend:</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># Upsert https backend, choosing to ignore certificate checks and setting min and max TLS version</span>
+etcdctl <span class="nb">set</span> /vulcand/backends/b1/backend <span class="s1">&#39;{&quot;Id&quot;:&quot;b1&quot;,&quot;Type&quot;:&quot;http&quot;,</span>
+<span class="s1">      &quot;Settings&quot;:{</span>
+<span class="s1">         &quot;TLS&quot;:{</span>
+<span class="s1">             &quot;PreferServerCipherSuites&quot;:false,</span>
+<span class="s1">             &quot;InsecureSkipVerify&quot;:true,</span>
+<span class="s1">             &quot;MinVersion&quot;:&quot;VersionTLS10&quot;,</span>
+<span class="s1">             &quot;MaxVersion&quot;:&quot;VersionTLS11&quot;}}}&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># Upsert https backend, choosing to ignore certificate checks and setting min and max TLS version</span>
+vctl backend upsert -id b1 --tlsSkipVerify --tlsMinV<span class="o">=</span><span class="s2">&quot;VersionTLS10&quot;</span> --tlsMaxV<span class="o">=</span>VersionTLS11
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># Upsert https backend, choosing to ignore certificate checks and setting min and max TLS version</span>
+curl -X POST -H <span class="s2">&quot;Content-Type: application/json&quot;</span> http://localhost:8182/v2/backends<span class="se">\</span>
+     -d <span class="s1">&#39;{&quot;Backend&quot;:</span>
+<span class="s1">            {&quot;Id&quot;:&quot;b1&quot;,&quot;Type&quot;:&quot;http&quot;,</span>
+<span class="s1">             &quot;Settings&quot;:{</span>
+<span class="s1">                &quot;TLS&quot;:{</span>
+<span class="s1">                &quot;PreferServerCipherSuites&quot;:false,</span>
+<span class="s1">                &quot;InsecureSkipVerify&quot;:true,</span>
+<span class="s1">                &quot;MinVersion&quot;:&quot;VersionTLS10&quot;,</span>
+<span class="s1">                &quot;MaxVersion&quot;:&quot;VersionTLS11&quot;}}}}&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="metrics">
+<h2>Metrics<a class="headerlink" href="#metrics" title="Permalink to this headline">¶</a></h2>
+<p>Metrics are provided for frontends and servers:</p>
+<div class="highlight-javascript"><div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;Verdict&quot;</span><span class="o">:</span><span class="p">{</span>
+     <span class="s2">&quot;IsBad&quot;</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span>    <span class="c1">// Verdict will specify if there&#39;s something wrong with the server</span>
+     <span class="s2">&quot;Anomalies&quot;</span><span class="o">:</span><span class="kc">null</span>  <span class="c1">// Anomalies can be populated if Vulcand detects something unusual</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;Counters&quot;</span><span class="o">:</span><span class="p">{</span>             <span class="c1">// Counters in a rolling time window</span>
+     <span class="s2">&quot;Period&quot;</span><span class="o">:</span><span class="mi">10000000000</span><span class="p">,</span> <span class="c1">// Measuring period in ns</span>
+     <span class="s2">&quot;NetErrors&quot;</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span>        <span class="c1">// Network errors</span>
+     <span class="s2">&quot;Total&quot;</span><span class="o">:</span><span class="mi">78</span><span class="p">,</span>           <span class="c1">// Total requests</span>
+     <span class="s2">&quot;StatusCodes&quot;</span><span class="o">:</span><span class="p">[</span>
+        <span class="p">{</span>
+           <span class="s2">&quot;Code&quot;</span><span class="o">:</span><span class="mi">400</span><span class="p">,</span>     <span class="c1">// Status codes recorded</span>
+           <span class="s2">&quot;Count&quot;</span><span class="o">:</span><span class="mi">7</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+           <span class="s2">&quot;Code&quot;</span><span class="o">:</span><span class="mi">429</span><span class="p">,</span>
+           <span class="s2">&quot;Count&quot;</span><span class="o">:</span><span class="mi">67</span>
+        <span class="p">}</span>
+     <span class="p">]</span>
+  <span class="p">},</span>
+  <span class="s2">&quot;LatencyBrackets&quot;</span><span class="o">:</span><span class="p">[</span> <span class="c1">// Latency brackets recorded for the server or frontend</span>
+     <span class="p">{</span>
+        <span class="s2">&quot;Quantile&quot;</span><span class="o">:</span><span class="mi">99</span><span class="p">,</span>
+        <span class="s2">&quot;Value&quot;</span><span class="o">:</span><span class="mi">172000</span>  <span class="c1">// microsecond resolution</span>
+     <span class="p">},</span>
+     <span class="p">{</span>
+        <span class="s2">&quot;Quantile&quot;</span><span class="o">:</span><span class="mf">99.9</span><span class="p">,</span>
+        <span class="s2">&quot;Value&quot;</span><span class="o">:</span><span class="mi">229000</span>
+     <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Vulcand provides real-time metrics via API and command line.</p>
+<div class="highlight-etcd"><div class="highlight"><pre><span class="c"># top acts like a standard linux top command, refreshing top active frontends every second.</span>
+vctl top
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre><span class="c"># top frontends</span>
+curl http://localhost:8182/v2/top/frontends?limit<span class="o">=</span>100
+
+<span class="c"># top servers</span>
+curl http://localhost:8182/v2/top/servers?limit<span class="o">=</span>100
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># vctl top acts like a standard linux top command, refreshing top active frontends every second.</span>
+vctl top
+<span class="c"># -b flag will show top only for frontends and servers that are associated with backend b1</span>
+vctl top -b b1
+</pre></div>
+</div>
+</div>
+<div class="section" id="logging">
+<h2>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h2>
+<p>Vulcand supports logging levels:</p>
+<div class="highlight-bash"><div class="highlight"><pre>INFO  <span class="c"># all output</span>
+WARN  <span class="c"># warnings and errors only (default)</span>
+ERROR <span class="c"># errors only</span>
+</pre></div>
+</div>
+<p>You can change the real time logging output by using <code class="docutils literal"><span class="pre">set_severity</span></code> command:</p>
+<div class="highlight-etcd"><div class="highlight"><pre>vctl log set_severity -s<span class="o">=</span>INFO
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl -X PUT http://localhost:8182/v1/log/severity -F <span class="nv">severity</span><span class="o">=</span>INFO
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># vctl log set_severity -s=INFO</span>
+</pre></div>
+</div>
+<p>You can check current severity using <code class="docutils literal"><span class="pre">get_severity</span></code> command:</p>
+<div class="highlight-etcd"><div class="highlight"><pre>vctl log get_severity
+</pre></div>
+</div>
+<div class="highlight-api"><div class="highlight"><pre>curl http://localhost:8182/v1/log/severity
+</pre></div>
+</div>
+<div class="highlight-cli"><div class="highlight"><pre><span class="c"># vctl log get_severity</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="process-management">
+<h2>Process management<a class="headerlink" href="#process-management" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="startup-and-configuration">
+<h3>Startup and configuration<a class="headerlink" href="#startup-and-configuration" title="Permalink to this headline">¶</a></h3>
+<p>Usage of vulcand</p>
+<div class="highlight-sh"><div class="highlight"><pre>vulcand
+
+ -apiInterface<span class="o">=</span><span class="s2">&quot;&quot;</span>:              <span class="c"># apiInterface - interface for API</span>
+ -apiPort<span class="o">=</span><span class="m">8182</span>                  <span class="c"># apiPort - port for API</span>
+
+ -etcd<span class="o">=[]</span>                       <span class="c"># etcd - list of etcd discovery service API servers</span>
+ -etcdKey<span class="o">=</span><span class="s2">&quot;vulcand&quot;</span>             <span class="c"># etceKey - etcd key for reading configuration</span>
+
+ -log<span class="o">=</span><span class="s2">&quot;console&quot;</span>                 <span class="c"># log - syslog or console</span>
+ -logSeverity<span class="o">=</span><span class="s2">&quot;WARN&quot;</span>            <span class="c"># log severity, INFO, WARN or ERROR</span>
+ -pidPath<span class="o">=</span><span class="s2">&quot;&quot;</span>                    <span class="c"># path to write PID</span>
+
+
+ -sealKey<span class="o">=</span><span class="s2">&quot;&quot;</span>                    <span class="c"># sealKey is used to store encrypted data in the backend,</span>
+                                <span class="c"># use &#39;vctl secret new_key&#39; to create a new key.</span>
+
+ -statsdAddr<span class="o">=</span><span class="s2">&quot;localhost:8185&quot;</span>   <span class="c"># statsdAddr - address where Vulcand will emit statsd metrics</span>
+ -statsdPrefix<span class="o">=</span><span class="s2">&quot;vulcand&quot;</span>        <span class="c"># statsdPrefix is a prefix prepended to every metric</span>
+
+ -serverMaxHeaderBytes<span class="o">=</span><span class="m">1048576</span>  <span class="c"># Maximum size of request headers in server</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="binary-upgrades">
+<h3>Binary upgrades<a class="headerlink" href="#binary-upgrades" title="Permalink to this headline">¶</a></h3>
+<p>In case if you need to upgrade the binary on the fly, you can now use signals to reload the binary without downtime.</p>
+<p>Here&#8217;s how it works:</p>
+<ul class="simple">
+<li>Replace the binary with a new version</li>
+<li>Send <code class="docutils literal"><span class="pre">USR2</span></code> signal to a running vulcand instance</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">kill</span> -USR2 <span class="k">$(</span>pidof vulcand<span class="k">)</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Check that there are two instances running:</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span class="m">4938</span> pts/12   Sl+    0:04 vulcand
+<span class="m">10459</span> pts/12   Sl+    0:01 vulcand
+</pre></div>
+</div>
+<p>Parent vulcand process forks the child process and passes all listening sockets file descriptors to the child.
+Child process is now serving the requests along with parent process.</p>
+<ul class="simple">
+<li>Check the logs for errors</li>
+<li>If everything works smoothly, send <code class="docutils literal"><span class="pre">SIGTERM</span></code> to the parent process, so it will gracefully shut down:</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">kill </span>4938
+</pre></div>
+</div>
+<ul class="simple">
+<li>On the other hand, if something went wrong, send <code class="docutils literal"><span class="pre">SIGTERM</span></code> to the child process and recover the old binary back.</li>
+</ul>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nb">kill </span>10459
+</pre></div>
+</div>
+<p>You can repeat this process multiple times.</p>
+</div>
+<div class="section" id="log-control">
+<h3>Log control<a class="headerlink" href="#log-control" title="Permalink to this headline">¶</a></h3>
+<p>You can controll logging verbosity by supplying <code class="docutils literal"><span class="pre">logSeverity</span></code> startup flag with the supported values <code class="docutils literal"><span class="pre">INFO</span></code>, <code class="docutils literal"><span class="pre">WARN</span></code> and <code class="docutils literal"><span class="pre">ERROR</span></code>, default value is <code class="docutils literal"><span class="pre">WARN</span></code>.</p>
+<p>If you need to temporarily change the logging for a running process (e.g. to debug some issue), you can do that by using <code class="docutils literal"><span class="pre">set_severity</span></code> command:</p>
+<div class="highlight-sh"><div class="highlight"><pre>vctl log set_severity -s<span class="o">=</span>INFO
+OK: Severity has been updated to INFO
+</pre></div>
+</div>
+<p>You can check the current logging seveirty by using <code class="docutils literal"><span class="pre">get_severity</span></code> command:</p>
+<div class="highlight-sh"><div class="highlight"><pre>vctl log get_severity
+OK: severity: INFO
+</pre></div>
+</div>
+</div>
+<div class="section" id="id4">
+<h3>Metrics<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<p>Vulcand can emit metrics to statsd via UDP. To turn this feature on, supply <code class="docutils literal"><span class="pre">statsdAddr</span></code> and <code class="docutils literal"><span class="pre">statsdPrefix</span></code> parameters to vulcand executable.</p>
+<p>The service emits the following metrics for each frontend and server:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Metric type</th>
+<th class="head">Metric Name</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>counter</td>
+<td>each distinct response code</td>
+</tr>
+<tr class="row-odd"><td>counter</td>
+<td>failure and success occurence</td>
+</tr>
+<tr class="row-even"><td>gauge</td>
+<td>runtime stats (number of goroutines, memory)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="docker-builds">
+<h3>Docker builds<a class="headerlink" href="#docker-builds" title="Permalink to this headline">¶</a></h3>
+<p>Here&#8217;s how you build vulcan in Docker:</p>
+<div class="highlight-sh"><div class="highlight"><pre>docker build -t mailgun/vulcand .
+</pre></div>
+</div>
+<p>Starting the daemon:</p>
+<div class="highlight-sh"><div class="highlight"><pre>docker run -d -p 8182:8182 -p 8181:8181 mailgun/vulcand:v0.8.0-alpha.3 /go/bin/vulcand -apiInterface<span class="o">=</span><span class="s2">&quot;0.0.0.0&quot;</span> --etcd<span class="o">=</span>http://172.17.42.1:4001
+</pre></div>
+</div>
+<p>Don&#8217;t forget to map the ports and bind to the proper interfaces, otherwise vulcan won&#8217;t be reachable from outside the container.</p>
+<p>Using the vctl from container:</p>
+<div class="highlight-sh"><div class="highlight"><pre>docker run mailgun/vulcand:v0.8.0-alpha.3 /opt/vulcan/vctl status  --vulcan <span class="s1">&#39;http://172.17.42.1:8182&#39;</span>
+</pre></div>
+</div>
+<p>Make sure you&#8217;ve specified <code class="docutils literal"><span class="pre">--vulcan</span></code> flag to tell vctl where the running vulcand is. We&#8217;ve used lxc bridge interface in the example above.</p>
+</div>
+<div class="section" id="docker-trusted-build">
+<h3>Docker trusted build<a class="headerlink" href="#docker-trusted-build" title="Permalink to this headline">¶</a></h3>
+<p>There&#8217;s a trusted <code class="docutils literal"><span class="pre">mailgun/vulcand</span></code> build you can use. The recommended version is <cite>0.8.0-alpha.3</cite>.</p>
+</div>
+<div class="section" id="manual-installation">
+<h3>Manual installation<a class="headerlink" href="#manual-installation" title="Permalink to this headline">¶</a></h3>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You have to install go&gt;=1.3.1 and Etcd before installing vulcand:</p>
+</div>
+<p>Install:</p>
+<div class="highlight-sh"><div class="highlight"><pre>make install
+make run
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+            </div>
+          </div>
+        </div>
+      <div class="footer">
+        <p><a href="https://github.com/mailgun/vulcand">Found a typo? Send a pull request!</a></p>
+        
+             <P>Docs created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.3.3.</P>
+        
+      </div>
+      <div class="clearer"></div>
+    </div>
+
+    </div> <!-- /content -->
+  </section> <!-- /container -->
+</div> <!-- /body -->
+
+<footer>
+    <div class="container">
+        <nav class="footer-nav">
+            <a href="http://twitter.com/mail_gun">Mailgun Twitter</a>
+            <a href="http://vulcan.ghost.io">Blog</a>
+        </nav>
+    </div>
+</footer>
+
+    <script type="text/javascript" charset="utf-8" src="_static/toc.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.debounce.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.cookie.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/jquery.viewport.min.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/samples.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/scroll_hash.js"></script>
+    <script type="text/javascript" charset="utf-8" src="_static/underscore-min.js"></script>
+    <script type="text/javascript">
+        window.underscore = _.noConflict();
+    </script>
+
+<script type="text/javascript">
+   $('input[type=\"search\"]').wrap('<span style=\"position:relative;\"></span>').after('<i id="clear-search" class="icon-remove-sign" style=\"position:absolute; right:5px;line-height:26px;\"></i><i class="icon-search" style=\"position:absolute; left:5px;line-height:26px;\"></i>');
+   $('#clear-search').click(function(){
+    $(this).parent().find('input').val('');
+    $(this).parent().find('input').focus();
+   });
+   // $("input").focusout(function() {this.value = "";});
+
+    // Responsive navigation show/hide main nav
+	$("#js-show-nav").click(function(){
+		$("#js-header-nav").slideToggle();
+	});
+
+    // highlight nav on load
+    $(document).ready(function(){
+        $('.docs-sidebar li').removeClass('active');
+        $('.docs-sidebar ul.current li.current a.current').parent().addClass('active');
+    });
+</script>
+
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-55222876-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
